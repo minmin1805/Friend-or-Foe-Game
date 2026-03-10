@@ -1,33 +1,10 @@
-import mongoose from "mongoose";
+import express from "express";
+import {createPlayer, updatePlayer, getLeaderboard} from "../controllers/playerController.js";
 
-const playerSchema = new mongoose.Schema({
-    sessionId: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    name: {
-        type: String,
-        required: true,
-    },
-    score: {
-        type: Number,
-        default: 0,
-    },
-    correctDecisions: {
-        type: Number,
-        default: 0
-    },
-    badge: {
-        type: String,
-        default: ''
-    },
-    completedAt: {
-        type: Data,
-        default: null,
-    }
-}, {timestamps: true});
+const router = express.Router();
 
-const Player = mongoose.model('Player', playerSchema);
+router.get("/leaderboard", getLeaderboard);
+router.post("/", createPlayer);
+router.patch("/:id", updatePlayer);
 
-export default Player;
+export default router;
