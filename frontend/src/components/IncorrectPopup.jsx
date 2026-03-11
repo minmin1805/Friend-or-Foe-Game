@@ -1,10 +1,25 @@
 import React from 'react'
 
 /**
- * Mock design for an \"incorrect decision\" feedback popup.
- * Content is static for now; real data will be wired later.
+ * Feedback popup when the player made an incorrect decision.
+ * Uses data from FriendOrFoeContext (pendingFeedback).
  */
-function IncorrectPopup({ onClose }) {
+function IncorrectPopup({ onClose, feedback }) {
+  const profile = feedback?.profile
+  const spottedKeys = feedback?.spottedFlags ?? []
+  const missedKeys = feedback?.missedFlags ?? []
+
+  const allRedFlags = profile?.redFlags ?? []
+  const spottedReasons = allRedFlags.filter((f) => spottedKeys.includes(f.elementKey))
+  const missedReasons = allRedFlags.filter((f) => missedKeys.includes(f.elementKey))
+
+  const totalRedFlags = allRedFlags.length
+  const spottedCount = spottedKeys.length
+  const missedCount = missedKeys.length
+  const roundScore = feedback?.roundPoints ?? 0
+  const totalScore = feedback?.totalScore ?? 0
+  const explanation = feedback?.explanation
+
   return (
   <div className='bg-blue-100 p-3 rounded-2xl'>
     <div className="relative w-full max-w-md md:max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden">
@@ -21,21 +36,26 @@ function IncorrectPopup({ onClose }) {
         {/* Round score */}
         <div className="text-center flex items-center justify-center">
           <p className="text-2xl font-semibold tracking-wide text-gray-700">ROUND SCORE:</p>
-          <p className="text-2xl font-extrabold text-red-600 ml-2">0 points</p>
+          <p className="text-2xl font-extrabold text-red-600 ml-2">
+            {roundScore} points
+          </p>
         </div>
 
         <hr className="border-dashed border-gray-900" />
 
         {/* Red flags list */}
         <div>
-          <p className="font-semibold text-gray-900 mb-2">THIS PROFILE HAD 6 RED FLAGS</p>
+          <p className="font-semibold text-gray-900 mb-2">
+            THIS PROFILE HAD {totalRedFlags || '?'} RED FLAGS
+          </p>
           <ul className="space-y-1 text-sm">
-            <li>🚩 Stock photo (not real person)</li>
-            <li>🚩 Account only 2 weeks old</li>
-            <li>🚩 Only 1 mutual friend</li>
-            <li>🚩 All photos are stock images</li>
-            <li>🚩 Generic posts, no personal details</li>
-            <li>🚩 Bio says &quot;DM open&quot; to strangers</li>
+            {allRedFlags.length > 0 ? (
+              allRedFlags.map((f) => (
+                <li key={f.elementKey}>🚩 {f.reason}</li>
+              ))
+            ) : (
+              <li className="text-gray-500 italic">Red flag details unavailable for this profile.</li>
+            )}
           </ul>
         </div>
 
@@ -43,10 +63,17 @@ function IncorrectPopup({ onClose }) {
 
         {/* Flags you spotted */}
         <div>
-          <p className="font-semibold text-gray-900 mb-1">You spotted: 2/6 flags</p>
+          <p className="font-semibold text-gray-900 mb-1">
+            You spotted: {spottedCount}/{totalRedFlags || '?'} flags
+          </p>
           <ul className="space-y-1 text-sm text-green-700">
-            <li>✔ Stock photo</li>
-            <li>✔ New account</li>
+            {spottedReasons.length > 0 ? (
+              spottedReasons.map((f) => (
+                <li key={f.elementKey}>✔ {f.reason}</li>
+              ))
+            ) : (
+              <li className="text-gray-500 italic">You didn&apos;t flag any of the red flags.</li>
+            )}
           </ul>
         </div>
 
@@ -56,16 +83,13 @@ function IncorrectPopup({ onClose }) {
         {/* Total score */}
         <div className="text-center flex items-center justify-center">
           <p className="text-2xl font-semibold tracking-wide text-gray-700 mr-2">TOTAL SCORE:</p>
-          <p className="text-2xl font-extrabold text-blue-700">1,450 points</p>
+          <p className="text-2xl font-extrabold text-blue-700">{totalScore} points</p>
         </div>
 
         {/* What to look for */}
         <div className="mt-2 rounded-2xl bg-purple-50 px-4 py-3 text-xs md:text-sm text-gray-700">
           <p className="font-semibold mb-1">💡 What to Look For:</p>
-          <p>
-            Predators use stock photos to create fake profiles. Always look for multiple red flags
-            together before accepting friend requests.
-          </p>
+          <p>{explanation}</p>
         </div>
       </div>
 

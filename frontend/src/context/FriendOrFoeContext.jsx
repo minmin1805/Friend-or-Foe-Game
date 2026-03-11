@@ -7,6 +7,7 @@ const PROFILES = profilesData
 // Scoring constants (tune later)
 const BASE_POINTS_CORRECT = 500
 const BONUS_PER_FLAG = 50
+const PENALTY_PER_INCORRECT_FLAG = 10
 
 const FriendOrFoeContext = createContext(null)
 
@@ -130,10 +131,12 @@ export function FriendOrFoeProvider({ children }) {
     const redFlagKeys = new Set((profile.redFlags || []).map((f) => f.elementKey))
     const spottedFlags = [...flagged].filter((k) => redFlagKeys.has(k))
     const missedFlags = [...redFlagKeys].filter((k) => !flagged.has(k))
-    let roundPoints = 0
+    const incorrectFlags = [...flagged].filter((k) => !redFlagKeys.has(k))
+
+    let baseRoundPoints = 0
     let explanation = ''
     if (correct) {
-      roundPoints = BASE_POINTS_CORRECT + spottedFlags.length * BONUS_PER_FLAG
+      baseRoundPoints = BASE_POINTS_CORRECT + spottedFlags.length * BONUS_PER_FLAG
       explanation =
         decision === 'accept'
           ? profile.explanationAcceptedCorrect || 'Correct – this was a safe profile.'
@@ -144,6 +147,15 @@ export function FriendOrFoeProvider({ children }) {
           ? profile.explanationAcceptedWrong || 'That was a fake profile.'
           : profile.explanationRejectedWrong || 'That was a safe profile.'
     }
+
+    // Apply penalties for incorrect flags: -10 per incorrect flag,
+    // but never let the TOTAL score drop below 0.
+    const penalty = incorrectFlags.length * PENALTY_PER_INCORRECT_FLAG
+    const tentativeRoundPoints = baseRoundPoints - penalty
+    const tentativeTotal = state.score + tentativeRoundPoints
+    const clampedTotal = Math.max(0, tentativeTotal)
+    const roundPoints = clampedTotal - state.score
+
     dispatch({
       type: 'SUBMIT_DECISION',
       payload: {
@@ -156,7 +168,7 @@ export function FriendOrFoeProvider({ children }) {
         missedFlags,
       },
     })
-  }, [state.flaggedElements])
+  }, [state.flaggedElements, state.score])
 
   const setCurrentProfileById = useCallback((profileId) => {
     dispatch({ type: 'SET_CURRENT_PROFILE_BY_ID', payload: { profileId } })

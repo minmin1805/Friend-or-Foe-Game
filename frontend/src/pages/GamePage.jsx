@@ -17,8 +17,10 @@ const profilePhotoMap = {
 }
 
 function GamePage() {
-  const { profiles, setCurrentProfileById } = useFriendOrFoe()
+  const { profiles, decisions, setCurrentProfileById } = useFriendOrFoe()
   const navigate = useNavigate()
+
+  const remainingProfiles = profiles.filter((_, index) => !decisions[index])
 
   const handleSelectProfile = (profile) => {
     setCurrentProfileById(profile.profileId)
@@ -48,7 +50,9 @@ function GamePage() {
           <div className="flex justify-between p-6 sm:p-8 bg-gray-50">
             <div className="flex flex-col justify-center">
               <h1 className="text-3xl font-medium">Friend Requests</h1>
-              <p className="text-gray-500 mt-2 text-lg">{profiles.length} requests</p>
+              <p className="text-gray-500 mt-2 text-lg">
+                {remainingProfiles.length} request{remainingProfiles.length === 1 ? '' : 's'} remaining
+              </p>
             </div>
             <div className="rounded-2xl border border-gray-300 py-2 px-5 flex items-center gap-2 h-[50px] mt-2 bg-white">
               <SlMagnifier className="text-2xl text-gray-500" />
@@ -57,11 +61,17 @@ function GamePage() {
           </div>
 
           <div className="mx-10">
-            <FriendRequestList
-              profiles={profiles}
-              profilePhotoMap={profilePhotoMap}
-              onSelectProfile={handleSelectProfile}
-            />
+            {remainingProfiles.length > 0 ? (
+              <FriendRequestList
+                profiles={remainingProfiles}
+                profilePhotoMap={profilePhotoMap}
+                onSelectProfile={handleSelectProfile}
+              />
+            ) : (
+              <div className="mt-10 text-center text-gray-700 text-lg">
+                You have reviewed all friend requests.
+              </div>
+            )}
           </div>
         </div>
       </div>

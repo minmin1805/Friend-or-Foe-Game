@@ -4,7 +4,22 @@ import tickImage from '../assets/Images/CorrectPopup/tickImage.png'
  * Mock design for a \"correct decision\" feedback popup.
  * Content is static for now; real data will be wired later.
  */
-function CorrectPopup({ onClose }) {
+function CorrectPopup({ onClose, feedback }) {
+  const profile = feedback?.profile
+  const spottedKeys = feedback?.spottedFlags ?? []
+  const missedKeys = feedback?.missedFlags ?? []
+
+  const allRedFlags = profile?.redFlags ?? []
+  const spottedReasons = allRedFlags.filter((f) => spottedKeys.includes(f.elementKey))
+  const missedReasons = allRedFlags.filter((f) => missedKeys.includes(f.elementKey))
+
+  const totalRedFlags = allRedFlags.length
+  const spottedCount = spottedKeys.length
+  const missedCount = missedKeys.length
+  const roundScore = feedback?.roundPoints ?? 0
+  const totalScore = feedback?.totalScore ?? 0
+  const explanation = feedback?.explanation
+
   return (
     <div className='bg-blue-100 p-3 rounded-2xl'>
     <div className="relative w-full max-w-md md:max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden">
@@ -21,21 +36,27 @@ function CorrectPopup({ onClose }) {
       <div className="px-6 py-5 space-y-4 text-sm md:text-base text-gray-800">
         {/* Base points */}
         <div className="text-center flex items-center justify-center">
-          <p className="text-2xl font-semibold tracking-wide text-gray-700">BASE POINTS:</p>
-          <p className="text-2xl font-extrabold text-green-600">+ 500</p>
+          <p className="text-2xl font-semibold tracking-wide text-gray-700">ROUND SCORE:</p>
+          <p className="text-2xl font-extrabold text-green-600 ml-2">
+            {roundScore} points
+          </p>
         </div>
 
         <hr className="border-dashed border-gray-900" />
 
         {/* Red flags spotted */}
         <div>
-          <p className="font-semibold text-gray-900 mb-2">RED FLAGS YOU SPOTTED: 5/7</p>
+          <p className="font-semibold text-gray-900 mb-2">
+            RED FLAGS YOU SPOTTED: {spottedCount}/{totalRedFlags || '?'}
+          </p>
           <ul className="space-y-1 text-sm">
-            <li>✔ No profile photo</li>
-            <li>✔ New account (3 days)</li>
-            <li>✔ No mutual friend</li>
-            <li>✔ Very few friends (12)</li>
-            <li>✔ No photos in gallery</li>
+            {spottedReasons.length > 0 ? (
+              spottedReasons.map((f) => (
+                <li key={f.elementKey}>✔ {f.reason}</li>
+              ))
+            ) : (
+              <li className="text-gray-500 italic">No red flags were flagged.</li>
+            )}
           </ul>
         </div>
 
@@ -44,29 +65,32 @@ function CorrectPopup({ onClose }) {
 
         {/* Flags missed */}
         <div>
-          <p className="font-semibold text-gray-900 mb-1">FLAGS YOU MISSED: 2</p>
+          <p className="font-semibold text-gray-900 mb-1">
+            FLAGS YOU MISSED: {missedCount}
+          </p>
           <ul className="space-y-1 text-sm text-amber-700">
-            <li>⚠ Following 247 (suspicious ratio)</li>
-            <li>⚠ Generic username with numbers</li>
+            {missedReasons.length > 0 ? (
+              missedReasons.map((f) => (
+                <li key={f.elementKey}>⚠ {f.reason}</li>
+              ))
+            ) : (
+              <li className="text-gray-500 italic">You spotted all the red flags for this profile.</li>
+            )}
           </ul>
         </div>
 
         <hr className="border-dashed border-gray-900" />
 
-        {/* Round score */}
+        {/* Total score so far */}
         <div className="text-center flex items-center justify-center">
-          <p className="text-2xl font-semibold tracking-wide text-gray-700">ROUND SCORE:</p>
-          <p className="text-2xl font-extrabold text-green-600 ml-2">750 points</p>
+          <p className="text-2xl font-semibold tracking-wide text-gray-700 mr-2">TOTAL SCORE:</p>
+          <p className="text-2xl font-extrabold text-blue-700">{totalScore} points</p>
         </div>
 
         {/* Why this was fake */}
         <div className="mt-2 rounded-2xl bg-purple-50 px-4 py-3 text-xs md:text-sm text-gray-700">
-          <p className="font-semibold mb-1">💡 Why This Was Fake:</p>
-          <p>
-            This profile had 7 red flags. No profile photo, brand new account, and no mutual friends
-            all indicate a fake account pretending to be a teen. Always look for multiple red flags
-            together before accepting.
-          </p>
+          <p className="font-semibold mb-1">💡 Why This Was Fake / Safe:</p>
+          <p>{explanation}</p>
         </div>
       </div>
 

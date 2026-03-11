@@ -5,7 +5,9 @@ import ScoreDisplay from "../components/ScoreDisplay";
 import Leaderboard from "../components/Leaderboard";
 // Reuse your existing logo for now – change path if needed
 import logo from "../assets/Images/EndGamePage/logo.png";
-
+import safetyScoutImage from "../assets/Images/EndGamePage/safetyScoutImage.png";
+import cyberDetectiveImage from "../assets/Images/EndGamePage/cyberDetective.png";
+import expertInvestigatorImage from "../assets/Images/EndGamePage/expertInvestigatorImage.png";
 // Optional: if you later add specific Friend or Foe badge/title images,
 // you can import and use them here. For now we use simple text.
 

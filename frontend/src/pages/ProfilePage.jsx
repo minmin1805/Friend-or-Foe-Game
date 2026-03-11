@@ -119,9 +119,9 @@ function ProfilePage() {
       {pendingFeedback && (
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/40">
           {pendingFeedback.correct ? (
-            <CorrectPopup onClose={handleCloseFeedback} />
+            <CorrectPopup feedback={pendingFeedback} onClose={handleCloseFeedback} />
           ) : (
-            <IncorrectPopup onClose={handleCloseFeedback} />
+            <IncorrectPopup feedback={pendingFeedback} onClose={handleCloseFeedback} />
           )}
         </div>
       )}
