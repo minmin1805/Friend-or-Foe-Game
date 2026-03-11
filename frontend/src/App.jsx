@@ -4,7 +4,6 @@ import InstructionPage from './pages/InstructionPage';
 import GamePage from './pages/GamePage';
 import EndgamePage from './pages/EndgamePage';
 import ProfilePage from './pages/ProfilePage';
-import {useLocation} from 'react-router-dom';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -17,6 +16,7 @@ function App() {
           <Route path='/instruction' element={<InstructionPage />} />
           <Route path='/game' element={<GamePage />} />
           <Route path='/endgame' element={<EndgamePage />} />
+          <Route path='/profile/:id' element={<ProfilePage />} />
         </Routes>
       </Router>
   )
