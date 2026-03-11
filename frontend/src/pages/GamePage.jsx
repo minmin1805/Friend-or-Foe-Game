@@ -3,7 +3,8 @@ import Header from '../components/Header'
 import { FaUserFriends, FaFlag, FaHome } from 'react-icons/fa'
 import { SlMagnifier } from 'react-icons/sl'
 import FriendRequestList from '../components/FriendRequestList'
-import profilesData from '../data/profiles.json'
+import { useFriendOrFoe } from '../context/FriendOrFoeContext'
+import { useNavigate } from 'react-router-dom'
 import person1 from '../assets/Images/GamePage/person1.png'
 import person2 from '../assets/Images/GamePage/person2.png'
 import person3 from '../assets/Images/GamePage/person3.png'
@@ -16,7 +17,13 @@ const profilePhotoMap = {
 }
 
 function GamePage() {
-  const profiles = profilesData
+  const { profiles, setCurrentProfileById } = useFriendOrFoe()
+  const navigate = useNavigate()
+
+  const handleSelectProfile = (profile) => {
+    setCurrentProfileById(profile.profileId)
+    navigate(`/profile/${profile.profileId}`)
+  }
 
   return (
     <div className="flex flex-col h-screen">
@@ -37,20 +44,24 @@ function GamePage() {
         </div>
 
         {/* right side - 10 friend requests from profiles.json */}
-        <div className="w-[80%] h-full">
-          <div className="flex justify-between p-10 bg-gray-50">
+        <div className="w-[80%] h-full bg-gradient-to-b from-purple-100 via-purple-50 to-purple-100">
+          <div className="flex justify-between p-6 sm:p-8 bg-gray-50">
             <div className="flex flex-col justify-center">
               <h1 className="text-3xl font-medium">Friend Requests</h1>
-              <p className="text-gray-500 mt-4 text-2xl">{profiles.length} requests</p>
+              <p className="text-gray-500 mt-2 text-lg">{profiles.length} requests</p>
             </div>
             <div className="rounded-2xl border border-gray-300 py-2 px-5 flex items-center gap-2 h-[50px] mt-2 bg-white">
               <SlMagnifier className="text-2xl text-gray-500" />
-              <input type="text" placeholder="Search" className="w-full outline-none bg-transparent" />
+              <input type="text" placeholder="Search (mock)" className="w-full outline-none bg-transparent" />
             </div>
           </div>
 
           <div className="mx-10">
-            <FriendRequestList profiles={profiles} profilePhotoMap={profilePhotoMap} />
+            <FriendRequestList
+              profiles={profiles}
+              profilePhotoMap={profilePhotoMap}
+              onSelectProfile={handleSelectProfile}
+            />
           </div>
         </div>
       </div>

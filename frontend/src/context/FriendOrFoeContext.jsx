@@ -20,6 +20,15 @@ function friendOrFoeReducer(state, action) {
         sessionId: action.payload.sessionId ?? null,
       }
     }
+    case 'SET_CURRENT_PROFILE_BY_ID': {
+      const { profileId } = action.payload
+      const index = PROFILES.findIndex((p) => p.profileId === profileId)
+      if (index === -1) return state
+      return {
+        ...state,
+        currentProfileIndex: index,
+      }
+    }
     case 'SET_FLAG': {
       const { profileIndex, elementKey } = action.payload
       const current = state.flaggedElements[profileIndex] ?? []
@@ -62,12 +71,10 @@ function friendOrFoeReducer(state, action) {
       }
     }
     case 'GO_TO_NEXT_PROFILE': {
-      const nextIndex = state.currentProfileIndex + 1
-      const gameComplete = nextIndex >= PROFILES.length
+      // For the \"choose any profile\" flow, we only clear feedback here.
+      // Game completion can later be derived from decisions length vs profiles length.
       return {
         ...state,
-        currentProfileIndex: gameComplete ? state.currentProfileIndex : nextIndex,
-        gameComplete,
         pendingFeedback: null,
       }
     }
@@ -151,6 +158,10 @@ export function FriendOrFoeProvider({ children }) {
     })
   }, [state.flaggedElements])
 
+  const setCurrentProfileById = useCallback((profileId) => {
+    dispatch({ type: 'SET_CURRENT_PROFILE_BY_ID', payload: { profileId } })
+  }, [])
+
   const goToNextProfile = useCallback(() => {
     dispatch({ type: 'GO_TO_NEXT_PROFILE' })
   }, [])
@@ -181,6 +192,7 @@ export function FriendOrFoeProvider({ children }) {
     createPlayer,
     setFlag,
     clearFlags,
+    setCurrentProfileById,
     submitDecision,
     goToNextProfile,
     finishGame,

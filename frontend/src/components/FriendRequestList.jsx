@@ -10,8 +10,9 @@ const AVATAR_BG = ['bg-green-100', 'bg-blue-100', 'bg-amber-100']
  * @param {Object} props
  * @param {Array} props.profiles - Array of profile objects (from profiles.json)
  * @param {Object} props.profilePhotoMap - Map of profilePhotoKey -> image (e.g. { person1: img, person2: img, person3: img, default: null })
+ * @param {Function} [props.onSelectProfile] - Optional callback when \"View Profile\" is clicked
  */
-function FriendRequestList({ profiles = [], profilePhotoMap = {} }) {
+function FriendRequestList({ profiles = [], profilePhotoMap = {}, onSelectProfile }) {
   const navigate = useNavigate()
 
   const getAvatarBg = (index) => AVATAR_BG[index % AVATAR_BG.length]
@@ -59,7 +60,13 @@ function FriendRequestList({ profiles = [], profilePhotoMap = {} }) {
               <div className="flex gap-2">
                 <button
                   type="button"
-                  onClick={() => navigate(`/profile/${profile.profileId}`)}
+                  onClick={() => {
+                    if (onSelectProfile) {
+                      onSelectProfile(profile)
+                    } else {
+                      navigate(`/profile/${profile.profileId}`)
+                    }
+                  }}
                   className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-300"
                 >
                   View Profile

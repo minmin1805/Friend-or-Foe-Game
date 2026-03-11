@@ -22,6 +22,8 @@ import {
  * @param {Array} [props.photoThumbnails] - Optional array of images for photo section placeholders
  * @param {Function} [props.onViewAllFriends] - Optional handler when \"View All Friends\" is clicked
  * @param {Function} [props.onViewAllPhotos] - Optional handler when \"View All Photos\" is clicked
+ * @param {Set<string>} [props.flaggedSet] - Optional set of flagged elementKeys for highlighting
+ * @param {Function} [props.onToggleFlag] - Optional handler when a flaggable element is clicked
  */
 function ProfileView({
   profile,
@@ -30,12 +32,25 @@ function ProfileView({
   photoThumbnails = [],
   onViewAllFriends,
   onViewAllPhotos,
+  flaggedSet,
+  onToggleFlag,
 }) {
   if (!profile) return null
 
   const photoSrc = profilePhotoMap[profile.profilePhotoKey] ?? profilePhotoMap.default ?? null
   const friendsCount = profile.friendsSection?.count ?? profile.friends ?? 0
   const photosCount = profile.photosSection?.count ?? 0
+
+  const isFlagged = (key) => (flaggedSet && flaggedSet.has ? flaggedSet.has(key) : false)
+
+  const flagClasses = (key) =>
+    onToggleFlag
+      ? `cursor-pointer ${
+          isFlagged(key)
+            ? 'ring-2 ring-red-500 ring-offset-2 ring-offset-purple-50'
+            : 'hover:ring-2 hover:ring-purple-300 hover:ring-offset-2 hover:ring-offset-purple-50'
+        }`
+      : ''
 
   return (
     <>
@@ -48,16 +63,36 @@ function ProfileView({
             <h2 className="font-semibold text-purple-900">Profile Overview</h2>
           </div>
           <div className="p-5 flex flex-col items-center text-center">
-            <div className="w-24 h-24 rounded-full overflow-hidden bg-purple-100 ring-2 ring-purple-200">
+            <div
+              className={`w-24 h-24 rounded-full overflow-hidden bg-purple-100 ring-2 ring-purple-200 ${flagClasses(
+                'profilePhoto',
+              )}`}
+              onClick={() => onToggleFlag && onToggleFlag('profilePhoto')}
+            >
               {photoSrc ? (
                 <img src={photoSrc} alt="" className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400 text-3xl font-bold">?</div>
               )}
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mt-3">{profile.displayName || profile.username}</h3>
-            <p className="text-sm text-purple-700">@{profile.username}</p>
-            <p className="text-xs text-gray-500 mt-1">{profile.accountAge}</p>
+            <h3
+              className={`text-xl font-bold text-gray-900 mt-3 ${flagClasses('username')}`}
+              onClick={() => onToggleFlag && onToggleFlag('username')}
+            >
+              {profile.displayName || profile.username}
+            </h3>
+            <p
+              className={`text-sm text-purple-700 ${flagClasses('bio')}`}
+              onClick={() => onToggleFlag && onToggleFlag('bio')}
+            >
+              @{profile.username}
+            </p>
+            <p
+              className={`text-xs text-gray-500 mt-1 ${flagClasses('joinedDate')}`}
+              onClick={() => onToggleFlag && onToggleFlag('joinedDate')}
+            >
+              {profile.accountAge}
+            </p>
             <div className="flex gap-2 mt-4 w-full">
               <button type="button" className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-purple-100 text-purple-800 font-medium text-sm hover:bg-purple-200 transition-colors">
                 <FaComment className="text-sm" /> Message
@@ -76,7 +111,10 @@ function ProfileView({
             <h2 className="font-semibold text-purple-900">Profile Details</h2>
           </div>
           <div className="p-5 space-y-3 text-sm">
-            <div className="flex items-center gap-3">
+            <div
+              className={`flex items-center gap-3 ${flagClasses('location')}`}
+              onClick={() => onToggleFlag && onToggleFlag('location')}
+            >
               <FaMapMarkerAlt className="text-purple-500 w-4 shrink-0" />
               <span className="text-gray-700">{profile.location}</span>
             </div>
@@ -85,19 +123,31 @@ function ProfileView({
               <span className="text-gray-700">{profile.accountAge}</span>
             </div>
             <div className="pt-2 mt-2 border-t border-purple-200/60 space-y-2">
-              <div className="flex items-center gap-3">
+              <div
+                className={`flex items-center gap-3 ${flagClasses('friends')}`}
+                onClick={() => onToggleFlag && onToggleFlag('friends')}
+              >
                 <FaUserPlus className="text-purple-500 w-4 shrink-0" />
                 <span className="text-gray-700">Friends: {profile.friends}</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div
+                className={`flex items-center gap-3 ${flagClasses('followers')}`}
+                onClick={() => onToggleFlag && onToggleFlag('followers')}
+              >
                 <FaUserPlus className="text-purple-500 w-4 shrink-0" />
                 <span className="text-gray-700">Followers: {profile.followers}</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div
+                className={`flex items-center gap-3 ${flagClasses('following')}`}
+                onClick={() => onToggleFlag && onToggleFlag('following')}
+              >
                 <FaUserPlus className="text-purple-500 w-4 shrink-0" />
                 <span className="text-gray-700">Following: {profile.following}</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div
+                className={`flex items-center gap-3 ${flagClasses('mutualFriends')}`}
+                onClick={() => onToggleFlag && onToggleFlag('mutualFriends')}
+              >
                 <FaUserPlus className="text-purple-500 w-4 shrink-0" />
                 <span className="text-gray-700">Mutual friends: {profile.mutualFriends}</span>
               </div>
@@ -111,7 +161,12 @@ function ProfileView({
 
         {/* Connection Network (Friends) + Photo Section */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden">
+          <div
+            className={`rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden ${flagClasses(
+              'section_friends',
+            )}`}
+            onClick={() => onToggleFlag && onToggleFlag('section_friends')}
+          >
             <div className="px-4 py-2.5 border-b border-purple-200/60 flex items-center gap-2">
               <FaUserPlus className="text-purple-600 text-base" />
               <h2 className="font-semibold text-purple-900 text-sm">Connection Network</h2>
@@ -142,7 +197,12 @@ function ProfileView({
             </div>
           </div>
 
-          <div className="rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden">
+          <div
+            className={`rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden ${flagClasses(
+              'section_photos',
+            )}`}
+            onClick={() => onToggleFlag && onToggleFlag('section_photos')}
+          >
             <div className="px-4 py-2.5 border-b border-purple-200/60 flex items-center gap-2">
               <FaImages className="text-purple-600 text-base" />
               <h2 className="font-semibold text-purple-900 text-sm">Photo Section</h2>
@@ -184,7 +244,13 @@ function ProfileView({
           </div>
           <div className="p-5 space-y-5">
             {(profile.posts || []).map((post) => (
-              <div key={post.id} className="rounded-xl bg-white/80 border border-purple-200/50 p-4 space-y-3">
+              <div
+                key={post.id}
+                className={`rounded-xl bg-white/80 border border-purple-200/50 p-4 space-y-3 ${flagClasses(
+                  post.id,
+                )}`}
+                onClick={() => onToggleFlag && onToggleFlag(post.id)}
+              >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full overflow-hidden bg-purple-200 shrink-0">
                     {photoSrc ? (

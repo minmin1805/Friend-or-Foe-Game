@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Header from '../components/Header'
 import ProfileView from '../components/ProfileView'
 import CorrectPopup from '../components/CorrectPopup'
 import IncorrectPopup from '../components/IncorrectPopup'
-import profilesData from '../data/profiles.json'
+import { useFriendOrFoe } from '../context/FriendOrFoeContext'
 import person1 from '../assets/Images/GamePage/person1.png'
 import person2 from '../assets/Images/GamePage/person2.png'
 import person3 from '../assets/Images/GamePage/person3.png'
@@ -25,11 +25,25 @@ const photoThumbnails = [stockImage1, stockImage2, stockImage3]
 
 function ProfilePage() {
   const { id } = useParams()
-  const profile = profilesData.find((p) => p.profileId === id) ?? null
   const navigate = useNavigate()
+  const {
+    currentProfile,
+    currentProfileIndex,
+    flaggedSetForCurrent,
+    setFlag,
+    submitDecision,
+    pendingFeedback,
+    goToNextProfile,
+    setCurrentProfileById,
+  } = useFriendOrFoe()
 
-  const [showCorrectPopup, setShowCorrectPopup] = useState(false)
-  const [showIncorrectPopup, setShowIncorrectPopup] = useState(false)
+  useEffect(() => {
+    if (id) {
+      setCurrentProfileById(id)
+    }
+  }, [id, setCurrentProfileById])
+
+  const profile = currentProfile
 
   const handleViewAllFriends = () => {
     if (!profile) return
@@ -39,6 +53,16 @@ function ProfilePage() {
   const handleViewAllPhotos = () => {
     if (!profile) return
     navigate(`/profile/${profile.profileId}/photos`)
+  }
+
+  const handleDecision = (decision) => {
+    if (!profile) return
+    submitDecision(currentProfileIndex, decision)
+  }
+
+  const handleCloseFeedback = () => {
+    goToNextProfile() // clears pendingFeedback
+    navigate('/game')
   }
 
   return (
@@ -55,31 +79,9 @@ function ProfilePage() {
               photoThumbnails={photoThumbnails}
               onViewAllFriends={handleViewAllFriends}
               onViewAllPhotos={handleViewAllPhotos}
+              flaggedSet={flaggedSetForCurrent}
+              onToggleFlag={(key) => setFlag(currentProfileIndex, key)}
             />
-
-            {/* Demo buttons to toggle mock popups */}
-            <div className="absolute top-28 right-6 flex gap-2 z-20">
-              <button
-                type="button"
-                className="px-3 py-1.5 rounded-lg bg-green-500 text-white text-xs font-medium hover:bg-green-600"
-                onClick={() => {
-                  setShowIncorrectPopup(false)
-                  setShowCorrectPopup(true)
-                }}
-              >
-                Show Correct Popup
-              </button>
-              <button
-                type="button"
-                className="px-3 py-1.5 rounded-lg bg-red-500 text-white text-xs font-medium hover:bg-red-600"
-                onClick={() => {
-                  setShowCorrectPopup(false)
-                  setShowIncorrectPopup(true)
-                }}
-              >
-                Show Incorrect Popup
-              </button>
-            </div>
           </>
         ) : (
           <div className="flex-1 flex items-center justify-center text-gray-500">
@@ -94,28 +96,33 @@ function ProfilePage() {
           <FaSearch className="text-purple-600 text-xl" />
           <h2 className="font-semibold text-purple-900">Investigation Panel</h2>
         </div>
-        <p className="text-gray-700 text-sm">Click suspicious elements to flag them</p>
+        <p className="text-gray-700 text-sm">Click suspicious elements to flag them, then accept or reject.</p>
         <div className="flex gap-3">
           <button
             type="button"
             className="px-5 py-2.5 rounded-xl bg-red-500 text-white font-medium text-sm hover:bg-red-600 transition-colors"
+            onClick={() => handleDecision('reject')}
           >
             ✕ Reject Request
           </button>
           <button
             type="button"
             className="px-5 py-2.5 rounded-xl bg-green-500 text-white font-medium text-sm hover:bg-green-600 transition-colors"
+            onClick={() => handleDecision('accept')}
           >
             ✓ Accept Request
           </button>
         </div>
       </div>
 
-      {/* Centered popups with dimmed background */}
-      {(showCorrectPopup || showIncorrectPopup) && (
+      {/* Centered feedback popups with dimmed background */}
+      {pendingFeedback && (
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/40">
-          {showCorrectPopup && <CorrectPopup onClose={() => setShowCorrectPopup(false)} />}
-          {showIncorrectPopup && <IncorrectPopup onClose={() => setShowIncorrectPopup(false)} />}
+          {pendingFeedback.correct ? (
+            <CorrectPopup onClose={handleCloseFeedback} />
+          ) : (
+            <IncorrectPopup onClose={handleCloseFeedback} />
+          )}
         </div>
       )}
     </div>
