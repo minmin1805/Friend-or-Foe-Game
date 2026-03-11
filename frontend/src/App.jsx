@@ -6,12 +6,14 @@ import EndgamePage from './pages/EndgamePage'
 import ProfilePage from './pages/ProfilePage'
 import ProfileFriendsPage from './pages/ProfileFriendsPage'
 import ProfilePhotosPage from './pages/ProfilePhotosPage'
+import { FriendOrFoeProvider } from './context/FriendOrFoeContext'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <Router>
-      <Routes>
+    <FriendOrFoeProvider>
+      <Router>
+        <Routes>
         <Route path="/" element={<ContentWarningPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/instruction" element={<InstructionPage />} />
@@ -20,8 +22,9 @@ function App() {
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/:id/friends" element={<ProfileFriendsPage />} />
         <Route path="/profile/:id/photos" element={<ProfilePhotosPage />} />
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </FriendOrFoeProvider>
   )
 }
 

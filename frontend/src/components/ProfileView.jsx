@@ -65,9 +65,6 @@ function ProfileView({
               <button type="button" className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-purple-100 text-purple-800 font-medium text-sm hover:bg-purple-200 transition-colors">
                 <FaUserPlus className="text-sm" /> Follow
               </button>
-              <button type="button" className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-purple-600 text-white font-medium text-sm hover:bg-purple-700 transition-colors">
-                <FaSearch className="text-sm" /> Investigate Profile
-              </button>
             </div>
           </div>
         </div>
