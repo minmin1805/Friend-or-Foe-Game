@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Header from '../components/Header'
 import ProfileView from '../components/ProfileView'
+import CorrectPopup from '../components/CorrectPopup'
+import IncorrectPopup from '../components/IncorrectPopup'
 import profilesData from '../data/profiles.json'
 import person1 from '../assets/Images/GamePage/person1.png'
 import person2 from '../assets/Images/GamePage/person2.png'
@@ -26,6 +28,9 @@ function ProfilePage() {
   const profile = profilesData.find((p) => p.profileId === id) ?? null
   const navigate = useNavigate()
 
+  const [showCorrectPopup, setShowCorrectPopup] = useState(false)
+  const [showIncorrectPopup, setShowIncorrectPopup] = useState(false)
+
   const handleViewAllFriends = () => {
     if (!profile) return
     navigate(`/profile/${profile.profileId}/friends`)
@@ -42,14 +47,40 @@ function ProfilePage() {
 
       <main className="flex-1 flex gap-6 p-6 pb-24 max-w-7xl mx-auto w-full">
         {profile ? (
-          <ProfileView
-            profile={profile}
-            profilePhotoMap={profilePhotoMap}
-            friendAvatars={friendAvatars}
-            photoThumbnails={photoThumbnails}
-            onViewAllFriends={handleViewAllFriends}
-            onViewAllPhotos={handleViewAllPhotos}
-          />
+          <>
+            <ProfileView
+              profile={profile}
+              profilePhotoMap={profilePhotoMap}
+              friendAvatars={friendAvatars}
+              photoThumbnails={photoThumbnails}
+              onViewAllFriends={handleViewAllFriends}
+              onViewAllPhotos={handleViewAllPhotos}
+            />
+
+            {/* Demo buttons to toggle mock popups */}
+            <div className="absolute top-28 right-6 flex gap-2 z-20">
+              <button
+                type="button"
+                className="px-3 py-1.5 rounded-lg bg-green-500 text-white text-xs font-medium hover:bg-green-600"
+                onClick={() => {
+                  setShowIncorrectPopup(false)
+                  setShowCorrectPopup(true)
+                }}
+              >
+                Show Correct Popup
+              </button>
+              <button
+                type="button"
+                className="px-3 py-1.5 rounded-lg bg-red-500 text-white text-xs font-medium hover:bg-red-600"
+                onClick={() => {
+                  setShowCorrectPopup(false)
+                  setShowIncorrectPopup(true)
+                }}
+              >
+                Show Incorrect Popup
+              </button>
+            </div>
+          </>
         ) : (
           <div className="flex-1 flex items-center justify-center text-gray-500">
             <p>Profile not found.</p>
@@ -79,6 +110,14 @@ function ProfilePage() {
           </button>
         </div>
       </div>
+
+      {/* Centered popups with dimmed background */}
+      {(showCorrectPopup || showIncorrectPopup) && (
+        <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/40">
+          {showCorrectPopup && <CorrectPopup onClose={() => setShowCorrectPopup(false)} />}
+          {showIncorrectPopup && <IncorrectPopup onClose={() => setShowIncorrectPopup(false)} />}
+        </div>
+      )}
     </div>
   )
 }
