@@ -1,5 +1,5 @@
 import React from 'react'
-
+import tickImage from '../assets/Images/CorrectPopup/tickImage.png'
 /**
  * Mock design for a \"correct decision\" feedback popup.
  * Content is static for now; real data will be wired later.
@@ -9,9 +9,13 @@ function CorrectPopup({ onClose }) {
     <div className='bg-blue-100 p-3 rounded-2xl'>
     <div className="relative w-full max-w-md md:max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden">
       {/* Header */}
-      <div className="bg-green-500 text-white px-6 py-4 text-center">
-        <p className="text-sm font-semibold tracking-wide">CORRECT DECISION!</p>
-        <p className="text-lg md:text-xl font-bold mt-1">Great Detective Work!</p>
+      <div className="bg-green-800 text-white px-6 py-4 text-center flex items-center">
+        <img src={tickImage} alt="tick" className='w-16 h-16 mr-6' />
+        <div className='flex flex-col '>
+
+        <p className="text-sm md:text-3xl font-semibold tracking-wide">CORRECT DECISION!</p>
+        <p className="text-lg md:text-2xl font-bold mt-1">Great Detective Work!</p>
+        </div>
       </div>
 
       <div className="px-6 py-5 space-y-4 text-sm md:text-base text-gray-800">
