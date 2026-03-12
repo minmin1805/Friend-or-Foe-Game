@@ -21,7 +21,7 @@ function CorrectPopup({ onClose, feedback }) {
   const explanation = feedback?.explanation
 
   return (
-    <div className='bg-blue-100 p-3 rounded-2xl'>
+    <div className="bg-blue-100 p-3 rounded-2xl max-h-[90vh] overflow-y-auto">
     <div className="relative w-full max-w-md md:max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden">
       {/* Header */}
       <div className="bg-green-800 text-white px-6 py-4 text-center flex items-center">
