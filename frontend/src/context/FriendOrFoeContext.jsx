@@ -19,6 +19,7 @@ function friendOrFoeReducer(state, action) {
         playerId: action.payload.id,
         playerName: action.payload.name,
         sessionId: action.payload.sessionId ?? null,
+        gameStartedAt: Date.now(),
       }
     }
     case 'SET_CURRENT_PROFILE_BY_ID': {

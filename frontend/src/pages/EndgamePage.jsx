@@ -1,19 +1,73 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdDownload } from "react-icons/io";
 import ScoreDisplay from "../components/ScoreDisplay";
 import Leaderboard from "../components/Leaderboard";
 // Reuse your existing logo for now – change path if needed
-import logo from "../assets/Images/EndGamePage/logo.png";
+import logo from "../assets/Images/EndGamePage/logo.png"; 
 import safetyScoutImage from "../assets/Images/EndGamePage/safetyScoutImage.png";
 import cyberDetectiveImage from "../assets/Images/EndGamePage/cyberDetective.png";
 import expertInvestigatorImage from "../assets/Images/EndGamePage/expertInvestigatorImage.png";
-// Optional: if you later add specific Friend or Foe badge/title images,
-// you can import and use them here. For now we use simple text.
+import { useFriendOrFoe } from "../context/FriendOrFoeContext";
 
 
 function EndgamePage() {
   const navigate = useNavigate();
+  const { score, correctDecisions, decisions, profiles, flaggedElements, gameStartedAt } =
+    useFriendOrFoe();
+
+  const {
+    totalSpottedFlags,
+    totalPossibleFlags,
+    finishTimeLabel,
+    badgeTitle,
+    badgeImage,
+  } = useMemo(() => {
+    const totalProfiles = profiles.length;
+
+    // Flags
+    let possible = 0;
+    let spotted = 0;
+    profiles.forEach((profile, index) => {
+      const redKeys = new Set((profile.redFlags || []).map((f) => f.elementKey));
+      possible += redKeys.size;
+      const flaggedForProfile = flaggedElements[index] || [];
+      flaggedForProfile.forEach((key) => {
+        if (redKeys.has(key)) spotted += 1;
+      });
+    });
+
+    // Time
+    let finish = "--:--";
+    if (gameStartedAt) {
+      const elapsedMs = Date.now() - gameStartedAt;
+      const totalSeconds = Math.max(0, Math.floor(elapsedMs / 1000));
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      finish = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    }
+
+    // Badge
+    const totalCompleted = decisions.filter(Boolean).length || totalProfiles;
+    const correctRate = totalCompleted > 0 ? correctDecisions / totalCompleted : 0;
+    let title = "Safety Scout";
+    let image = safetyScoutImage;
+    if (correctRate >= 0.8) {
+      title = "Expert Investigator";
+      image = expertInvestigatorImage;
+    } else if (correctRate >= 0.5) {
+      title = "Cyber Detective";
+      image = cyberDetectiveImage;
+    }
+
+    return {
+      totalSpottedFlags: spotted,
+      totalPossibleFlags: possible,
+      finishTimeLabel: finish,
+      badgeTitle: title,
+      badgeImage: image,
+    };
+  }, [profiles, flaggedElements, gameStartedAt, decisions, correctDecisions]);
 
   const handleDownloadChecklist = () => {
     // Mock only – wire to real PDF later
@@ -54,7 +108,16 @@ function EndgamePage() {
         <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl px-4 sm:px-6 gap-6 lg:gap-10 mt-4 sm:mt-8">
           {/* Left: score / badge card (styled like ScoreDisplay) */}
           <div className="w-full lg:w-auto flex justify-center h-fit">
-            <ScoreDisplay />
+            <ScoreDisplay
+              score={score}
+              correctCount={correctDecisions}
+              totalProfiles={profiles.length}
+              totalSpottedFlags={totalSpottedFlags}
+              totalPossibleFlags={totalPossibleFlags}
+              finishTimeLabel={finishTimeLabel}
+              badgeTitle={badgeTitle}
+              badgeImage={badgeImage}
+            />
           </div>
 
           {/* Right: leaderboard + learnings, styled like LeaderBoard */}

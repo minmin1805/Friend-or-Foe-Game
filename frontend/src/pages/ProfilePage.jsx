@@ -34,6 +34,9 @@ function ProfilePage() {
     submitDecision,
     pendingFeedback,
     goToNextProfile,
+    finishGame,
+    profiles,
+    decisions,
     setCurrentProfileById,
   } = useFriendOrFoe()
 
@@ -60,9 +63,17 @@ function ProfilePage() {
     submitDecision(currentProfileIndex, decision)
   }
 
-  const handleCloseFeedback = () => {
+  const handleCloseFeedback = async () => {
     goToNextProfile() // clears pendingFeedback
-    navigate('/game')
+
+    const remaining = profiles.filter((_, index) => !decisions[index]).length
+
+    if (remaining <= 0) {
+      await finishGame()
+      navigate('/endgame')
+    } else {
+      navigate('/game')
+    }
   }
 
   return (

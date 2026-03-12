@@ -75,22 +75,24 @@ function ProfileView({
                 <div className="w-full h-full flex items-center justify-center text-gray-400 text-3xl font-bold">?</div>
               )}
             </div>
-            <h3
-              className={`text-xl font-bold text-gray-900 mt-3 ${flagClasses('username')}`}
+            <div
+              className={`mt-3 ${flagClasses('username')}`}
               onClick={() => onToggleFlag && onToggleFlag('username')}
             >
-              {profile.displayName || profile.username}
-            </h3>
-            <p
-              className={`text-sm text-purple-700 ${flagClasses('bio')}`}
-              onClick={() => onToggleFlag && onToggleFlag('bio')}
-            >
-              @{profile.username}
-            </p>
-            <p
-              className={`text-xs text-gray-500 mt-1 ${flagClasses('joinedDate')}`}
-              onClick={() => onToggleFlag && onToggleFlag('joinedDate')}
-            >
+              <h3 className="text-xl font-bold text-gray-900">
+                {profile.displayName || profile.username}
+              </h3>
+              <p className="text-sm text-purple-700">@{profile.username}</p>
+            </div>
+            {profile.bio && (
+              <p
+                className={`mt-2 text-sm text-gray-700 text-center ${flagClasses('bio')}`}
+                onClick={() => onToggleFlag && onToggleFlag('bio')}
+              >
+                {profile.bio}
+              </p>
+            )}
+            <p className="text-xs text-gray-500 mt-1">
               {profile.accountAge}
             </p>
             <div className="flex gap-2 mt-4 w-full">
@@ -118,7 +120,10 @@ function ProfileView({
               <FaMapMarkerAlt className="text-purple-500 w-4 shrink-0" />
               <span className="text-gray-700">{profile.location}</span>
             </div>
-            <div className="flex items-center gap-3">
+            <div
+              className={`flex items-center gap-3 ${flagClasses('joinedDate')}`}
+              onClick={() => onToggleFlag && onToggleFlag('joinedDate')}
+            >
               <FaCalendar className="text-purple-500 w-4 shrink-0" />
               <span className="text-gray-700">{profile.accountAge}</span>
             </div>

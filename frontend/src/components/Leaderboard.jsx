@@ -1,14 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useFriendOrFoe } from '../context/FriendOrFoeContext'
 
-const leaderboardMock = [
-    { rank: 1, name: "Alex_2025", score: 10250, title: "EXPERT" },
-    { rank: 2, name: "Jordan_123", score: 9500, title: "EXPERT" },
-    { rank: 3, name: "Sam_Gamer", score: 7800, title: "EXPERT" },
-    { rank: 4, name: "Taylor", score: 6750, title: "SCHOLAR" },
-    { rank: 5, name: "YOU", score: 6480, title: "SCHOLAR", isYou: true },
-  ];
-  
 function Leaderboard() {
+  const { getLeaderboard, playerName } = useFriendOrFoe()
+  const [entries, setEntries] = useState([])
+
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const data = await getLeaderboard(10)
+        if (!cancelled) {
+          const players = data.players || []
+          const mapped = players.map((p, index) => ({
+            rank: index + 1,
+            name: p.name,
+            score: p.score || 0,
+            title: p.badge || '',
+          }))
+          setEntries(mapped)
+        }
+      } catch (e) {
+        console.error('Failed to load leaderboard', e)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [getLeaderboard])
+
   return (
     <div className="w-full lg:flex-1 flex flex-col items-center">
     {/* Leaderboard card */}
@@ -21,7 +41,7 @@ function Leaderboard() {
             </h1>
           </div>
 
-          {leaderboardMock.map((item) => (
+          {entries.map((item) => (
             <div
               key={item.rank}
               className="flex flex-col gap-2 py-1"
@@ -34,7 +54,7 @@ function Leaderboard() {
               >
                 <p className="text-base sm:text-lg">
                   {item.rank}.{" "}
-                  {item.isYou ? "YOU" : item.name}
+                  {item.name === playerName ? "YOU" : item.name}
                 </p>
                 <p className="text-base sm:text-lg text-right tabular-nums">
                   {item.score.toLocaleString()} Points
