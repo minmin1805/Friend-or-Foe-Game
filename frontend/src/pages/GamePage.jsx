@@ -28,25 +28,25 @@ function GamePage() {
   }
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-purple-100 via-purple-50 to-purple-100">
       <Header />
 
-      <div className="flex w-full h-full">
+      <div className="flex w-full flex-1">
         {/* left bar */}
-        <div className="w-[23%] h-full bg-gray-200 pt-[100px]">
-          <p className="flex items-center gap-2 text-2xl font-medium text-gray-500 p-2 pl-10">
+        <div className="w-[23%] bg-gray-200 pt-[100px]">
+          <p className="flex items-center gap-2 text-2xl font-medium text-gray-500 p-2 ">
             <FaHome className="text-3xl text-gray-500" /> Home
           </p>
-          <p className="flex items-center gap-2 text-2xl font-medium text-white bg-purple-500 p-2 pl-10">
+          <p className="flex items-center gap-2 text-2xl font-medium text-white bg-purple-500 p-2 ">
             <FaUserFriends className="text-3xl text-white" /> Friends Suggestions {'>'}
           </p>
-          <p className="flex items-center gap-2 text-2xl font-medium text-gray-500 p-2 pl-10">
+          <p className="flex items-center gap-2 text-2xl font-medium text-gray-500 p-2 ">
             <FaFlag className="text-3xl text-gray-500" /> Sugesstions
           </p>
         </div>
 
         {/* right side - 10 friend requests from profiles.json */}
-        <div className="w-[80%] h-full bg-gradient-to-b from-purple-100 via-purple-50 to-purple-100">
+        <div className="w-[80%]">
           <div className="flex justify-between p-6 sm:p-8 bg-gray-50">
             <div className="flex flex-col justify-center">
               <h1 className="text-3xl font-medium">Friend Requests</h1>
@@ -60,7 +60,7 @@ function GamePage() {
             </div>
           </div>
 
-          <div className="mx-10">
+          <div className="mx-10 mt-5">
             {remainingProfiles.length > 0 ? (
               <FriendRequestList
                 profiles={remainingProfiles}

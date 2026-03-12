@@ -29,11 +29,19 @@ function Leaderboard() {
     }
   }, [getLeaderboard])
 
+  const getDisplayTitle = (item) => {
+    if (item.title && item.title.trim() !== '') return item.title
+    // Fallback: derive badge from score if backend badge is missing
+    if (item.score >= 8000) return 'Expert Investigator'
+    if (item.score >= 4000) return 'Cyber Detective'
+    return 'Safety Scout'
+  }
+
   return (
     <div className="w-full lg:flex-1 flex flex-col items-center">
     {/* Leaderboard card */}
     <div className="flex flex-col items-center justify-center w-full">
-      <div className="bg-[#ddecff] rounded-2xl p-5 flex flex-col items-center justify-center w-full">
+      <div className="bg-[#ddecff] rounded-2xl p-3 flex flex-col items-center justify-center w-full">
         <div className="bg-white rounded-2xl flex flex-col w-full p-3">
           <div className="flex gap-3 items-center mb-4 border-b border-[#000000] pb-2">
             <h1 className="text-xl sm:text-2xl font-bold">
@@ -60,7 +68,7 @@ function Leaderboard() {
                   {item.score.toLocaleString()} Points
                 </p>
                 <p className="text-base sm:text-lg text-right">
-                  {item.title}
+                  {getDisplayTitle(item)}
                 </p>
               </div>
               <div className="h-0.5 bg-[#2e0f53] w-full mt-1 mb-1" />
