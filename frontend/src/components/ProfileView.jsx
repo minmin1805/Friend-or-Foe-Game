@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   FaUser,
   FaMapMarkerAlt,
@@ -36,6 +36,8 @@ function ProfileView({
   onToggleFlag,
 }) {
   if (!profile) return null
+
+  const [expandedPostId, setExpandedPostId] = useState(null)
 
   const photoSrc = profilePhotoMap[profile.profilePhotoKey] ?? profilePhotoMap.default ?? null
   const friendsCount = profile.friendsSection?.count ?? profile.friends ?? 0
@@ -248,50 +250,77 @@ function ProfileView({
             <h2 className="font-semibold text-purple-900">Activity Posts</h2>
           </div>
           <div className="p-5 space-y-5">
-            {(profile.posts || []).map((post) => (
-              <div
-                key={post.id}
-                className={`rounded-xl bg-white/80 border border-purple-200/50 p-4 space-y-3 ${flagClasses(
-                  post.id,
-                )}`}
-                onClick={() => onToggleFlag && onToggleFlag(post.id)}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full overflow-hidden bg-purple-200 shrink-0">
-                    {photoSrc ? (
-                      <img src={photoSrc} alt="" className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">?</div>
-                    )}
+            {(profile.posts || []).map((post) => {
+              const comments = post.comments || []
+              const commentCount = comments.length
+              const isExpanded = expandedPostId === post.id
+              const likeCount = typeof post.likes === 'number' ? post.likes : 0
+
+              return (
+                <div
+                  key={post.id}
+                  className={`rounded-xl bg-white/80 border border-purple-200/50 p-4 space-y-3 ${flagClasses(
+                    post.id,
+                  )}`}
+                  onClick={() => onToggleFlag && onToggleFlag(post.id)}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full overflow-hidden bg-purple-200 shrink-0">
+                      {photoSrc ? (
+                        <img src={photoSrc} alt="" className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">?</div>
+                      )}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">{profile.displayName || profile.username}</p>
+                      <p className="text-xs text-gray-500">{post.date}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-gray-900">{profile.displayName || profile.username}</p>
-                    <p className="text-xs text-gray-500">{post.date}</p>
+                  <p className="text-gray-700 text-sm">{post.text}</p>
+                  {post.hasImage ? (
+                    <div className="w-full h-32 rounded-lg bg-purple-100/50 border border-purple-200/50 flex items-center justify-center text-gray-500 text-sm">
+                      [Image]
+                    </div>
+                  ) : (
+                    <div className="w-full h-20 rounded-lg bg-purple-100/30 border border-purple-200/50 flex items-center justify-center text-gray-400 text-xs">
+                      No image
+                    </div>
+                  )}
+                  <div className="flex items-center gap-4 pt-1">
+                    <span className="flex items-center gap-1 text-sm text-gray-600">
+                      <FaStar className="text-amber-400" />
+                      <span>{likeCount}</span>
+                    </span>
+                    <button
+                      type="button"
+                      className="flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setExpandedPostId((prev) => (prev === post.id ? null : post.id))
+                      }}
+                    >
+                      <FaComment className="text-purple-500" />
+                      <span>{commentCount} comment{commentCount === 1 ? '' : 's'}</span>
+                    </button>
+                    <button type="button" className="flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700">
+                      <FaShare /> Share
+                    </button>
                   </div>
+
+                  {isExpanded && commentCount > 0 && (
+                    <div className="mt-2 border-t border-purple-100 pt-2 space-y-2">
+                      {comments.map((c) => (
+                        <div key={c.id} className="flex flex-col text-xs text-gray-700">
+                          <span className="font-semibold">{c.author}</span>
+                          <span>{c.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <p className="text-gray-700 text-sm">{post.text}</p>
-                {post.hasImage ? (
-                  <div className="w-full h-32 rounded-lg bg-purple-100/50 border border-purple-200/50 flex items-center justify-center text-gray-500 text-sm">
-                    [Image]
-                  </div>
-                ) : (
-                  <div className="w-full h-20 rounded-lg bg-purple-100/30 border border-purple-200/50 flex items-center justify-center text-gray-400 text-xs">
-                    No image
-                  </div>
-                )}
-                <div className="flex items-center gap-4 pt-1">
-                  <span className="flex items-center gap-1 text-sm text-gray-600">
-                    <FaStar className="text-amber-400" /> 0
-                  </span>
-                  <span className="flex items-center gap-1 text-sm text-gray-600">
-                    <FaComment className="text-purple-500" /> 0
-                  </span>
-                  <button type="button" className="flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700">
-                    <FaShare /> Share
-                  </button>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>

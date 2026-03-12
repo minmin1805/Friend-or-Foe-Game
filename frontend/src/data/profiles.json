@@ -14,9 +14,33 @@
     "following": 247,
     "mutualFriends": 0,
     "posts": [
-      { "id": "post_1", "text": "Just joined! Add me everyone!", "date": "3 days ago", "hasImage": false },
-      { "id": "post_2", "text": "Who wants to chat?", "date": "2 days ago", "hasImage": false },
-      { "id": "post_3", "text": "Bored, DM me", "date": "1 day ago", "hasImage": false }
+      {
+        "id": "post_1",
+        "text": "Just joined! Add me everyone!",
+        "date": "3 days ago",
+        "hasImage": false,
+        "likes": 3,
+        "comments": [
+          { "id": "c1", "author": "RandomUser01", "text": "Omg add me back!!" }
+        ]
+      },
+      {
+        "id": "post_2",
+        "text": "Who wants to chat?",
+        "date": "2 days ago",
+        "hasImage": false,
+        "likes": 2,
+        "comments": [
+          { "id": "c1", "author": "DM_me_now", "text": "DM me, I'm always up late 😉" }
+        ]
+      },
+      {
+        "id": "post_3",
+        "text": "Bored, DM me",
+        "date": "1 day ago",
+        "hasImage": false,
+        "likes": 1
+      }
     ],
     "friendsSection": { "count": 12 },
     "photosSection": { "count": 0, "description": "Empty" },
@@ -44,18 +68,54 @@
     "bio": "15 | Cheerleader | Love making new friends 💕 DM open!",
     "location": "Miami, FL",
     "accountAge": "Created 2 weeks ago",
-    "friends": 87,
+    "friends": 7,
     "followers": 45,
     "following": 312,
     "mutualFriends": 1,
     "posts": [
-      { "id": "post_1", "text": "Love the beach!", "date": "2 weeks ago", "hasImage": true },
-      { "id": "post_2", "text": "Yum!", "date": "1 week ago", "hasImage": true },
-      { "id": "post_3", "text": "Be yourself", "date": "5 days ago", "hasImage": true },
-      { "id": "post_4", "text": "Beautiful sunset", "date": "3 days ago", "hasImage": true },
-      { "id": "post_5", "text": "Who wants to chat? Bored!", "date": "1 day ago", "hasImage": false }
+      {
+        "id": "post_1",
+        "text": "Love the beach!",
+        "date": "2 weeks ago",
+        "hasImage": true,
+        "likes": 24,
+        "comments": [
+          { "id": "c1", "author": "BeachLover", "text": "OMG this looks like a travel ad 😍" }
+        ]
+      },
+      {
+        "id": "post_2",
+        "text": "Yum!",
+        "date": "1 week ago",
+        "hasImage": true,
+        "likes": 12
+      },
+      {
+        "id": "post_3",
+        "text": "Be yourself",
+        "date": "5 days ago",
+        "hasImage": true,
+        "likes": 9
+      },
+      {
+        "id": "post_4",
+        "text": "Beautiful sunset",
+        "date": "3 days ago",
+        "hasImage": true,
+        "likes": 17
+      },
+      {
+        "id": "post_5",
+        "text": "Who wants to chat? Bored!",
+        "date": "1 day ago",
+        "hasImage": false,
+        "likes": 4,
+        "comments": [
+          { "id": "c1", "author": "ChatNow", "text": "Let’s talk in DMs 😘" }
+        ]
+      }
     ],
-    "friendsSection": { "count": 87 },
+    "friendsSection": { "count": 7 },
     "photosSection": { "count": 4, "description": "Stock photos (beach, sunset, food, flowers)" },
     "redFlags": [
       { "elementKey": "profilePhoto", "reason": "Profile photo is a stock image" },
@@ -83,21 +143,48 @@
     "profilePhotoKey": "person2",
     "bio": "16 | Soccer player | Lincoln High | Gaming enthusiast",
     "location": "Boston, MA",
-    "accountAge": "Created 2 years ago",
-    "friends": 284,
+    "accountAge": "Created 1 year ago",
+    "friends": 30,
     "followers": 312,
     "following": 267,
-    "mutualFriends": 8,
+    "mutualFriends": 12,
     "posts": [
-      { "id": "post_1", "text": "Soccer game with friends today!", "date": "1 week ago", "hasImage": true },
-      { "id": "post_2", "text": "New gaming setup", "date": "2 weeks ago", "hasImage": true },
-      { "id": "post_3", "text": "Group photo at school", "date": "3 weeks ago", "hasImage": true }
+      {
+        "id": "post_1",
+        "text": "Soccer game with friends today!",
+        "date": "1 week ago",
+        "hasImage": true,
+        "likes": 32,
+        "comments": [
+          { "id": "c1", "author": "Leo", "text": "GG, that match was so fun 😂" },
+          { "id": "c2", "author": "Maya", "text": "Proud of the team!! 🥇" }
+        ]
+      },
+      {
+        "id": "post_2",
+        "text": "New gaming setup",
+        "date": "2 weeks ago",
+        "hasImage": true,
+        "likes": 21
+      },
+      {
+        "id": "post_3",
+        "text": "Group photo at school",
+        "date": "3 weeks ago",
+        "hasImage": true,
+        "likes": 27,
+        "comments": [
+          { "id": "c1", "author": "Sam", "text": "Best class ever 😎" },
+          { "id": "c2", "author": "Jess", "text": "We should print this one!" },
+          { "id": "c3", "author": "Coach L", "text": "Great to see everyone smiling." }
+        ]
+      }
     ],
-    "friendsSection": { "count": 284 },
+    "friendsSection": { "count": 30 },
     "photosSection": { "count": 19, "description": "Selfies, friends, sports, hobbies; same person; natural teen content" },
     "redFlags": [],
-    "explanationAcceptedCorrect": "This account shows signs of a real person: authentic personal photos, account that's 2 years old, 8 mutual friends, consistent posts over time, and natural friend interactions. This is what a real teen profile looks like.",
-    "explanationRejectedWrong": "This was actually a safe, real account. While it's okay to be cautious, this profile had no red flags: real personal photos, established account (2 years), multiple mutual friends, authentic content, and natural friend interactions. Look for these green flags when evaluating real profiles.",
+    "explanationAcceptedCorrect": "This account shows signs of a real person: authentic personal photos, account that's 2 years old, 12 mutual friends, consistent posts over time, and natural friend interactions. This is what a real teen profile looks like.",
+    "explanationRejectedWrong": "This was actually a safe, real account. While it's okay to be cautious, this profile had no red flags: real personal photos, established account (1 year), multiple mutual friends, authentic content, and natural friend interactions. Look for these green flags when evaluating real profiles.",
     "explanationRejectedCorrect": "",
     "explanationAcceptedWrong": ""
   },
@@ -110,27 +197,78 @@
     "profilePhotoKey": "person3",
     "bio": "15 | Love photography | Cat mom to Mr. Whiskers | Always looking for new friends!",
     "location": "Portland, OR",
-    "accountAge": "Created 3 months ago",
-    "friends": 156,
+    "accountAge": "Created 3 month ago",
+    "friends": 3,
     "followers": 89,
     "following": 423,
-    "mutualFriends": 2,
+    "mutualFriends": 1,
     "posts": [
-      { "id": "post_1", "text": "Mr. Whiskers being cute", "date": "3 months ago", "hasImage": true },
-      { "id": "post_2", "text": "Pretty sky tonight", "date": "2 months ago", "hasImage": true },
-      { "id": "post_3", "text": "Dinner yum!", "date": "2 months ago", "hasImage": true },
-      { "id": "post_4", "text": "New hair color!", "date": "1 month ago", "hasImage": true },
-      { "id": "post_5", "text": "Reading this", "date": "3 weeks ago", "hasImage": true },
-      { "id": "post_6", "text": "Anyone want to chat? Bored!", "date": "2 weeks ago", "hasImage": false },
-      { "id": "post_7", "text": "Looking for new friends to talk to!", "date": "1 week ago", "hasImage": false },
-      { "id": "post_8", "text": "DM me if you want to talk about anything", "date": "3 days ago", "hasImage": false }
+      {
+        "id": "post_1",
+        "text": "Mr. Whiskers being cute",
+        "date": "3 months ago",
+        "hasImage": true,
+        "likes": 15
+      },
+      {
+        "id": "post_2",
+        "text": "Pretty sky tonight",
+        "date": "3 months ago",
+        "hasImage": true,
+        "likes": 11
+      },
+      {
+        "id": "post_3",
+        "text": "Dinner yum!",
+        "date": "3 months ago",
+        "hasImage": true,
+        "likes": 9
+      },
+      {
+        "id": "post_4",
+        "text": "New hair color!",
+        "date": "3 months ago",
+        "hasImage": true,
+        "likes": 13
+      },
+      {
+        "id": "post_5",
+        "text": "Reading this",
+        "date": "1 week ago",
+        "hasImage": true,
+        "likes": 6
+      },
+      {
+        "id": "post_6",
+        "text": "Anyone want to chat? Bored!",
+        "date": "2 weeks ago",
+        "hasImage": false,
+        "likes": 3,
+        "comments": [
+          { "id": "c1", "author": "NewFriend?", "text": "Message me, we can talk all night" }
+        ]
+      },
+      {
+        "id": "post_7",
+        "text": "Looking for new friends to talk to!",
+        "date": "1 week ago",
+        "hasImage": false,
+        "likes": 4
+      },
+      {
+        "id": "post_8",
+        "text": "DM me if you want to talk about anything",
+        "date": "3 days ago",
+        "hasImage": false,
+        "likes": 5
+      }
     ],
-    "friendsSection": { "count": 156 },
+    "friendsSection": { "count": 3 },
     "photosSection": { "count": 8, "description": "Mix of generic content; only 1 selfie; no friends in photos" },
     "redFlags": [
       { "elementKey": "following", "reason": "Following 423 but only 89 followers (mass-adding)" },
       { "elementKey": "joinedDate", "reason": "Account only 3 months old" },
-      { "elementKey": "mutualFriends", "reason": "Only 2 mutual friends" },
+      { "elementKey": "mutualFriends", "reason": "Only 1 mutual friends" },
       { "elementKey": "section_photos", "reason": "No friends in any photos; generic content only" },
       { "elementKey": "post_1", "reason": "Generic post; no personal details" },
       { "elementKey": "post_2", "reason": "Generic post; no personal details" },
@@ -156,19 +294,41 @@
     "bio": "14 | Digital artist 🎨 | Commissions open | Boston Art Club | They/them",
     "location": "Boston, MA",
     "accountAge": "Created 1 year ago",
-    "friends": 198,
+    "friends": 32,
     "followers": 245,
     "following": 183,
-    "mutualFriends": 5,
+    "mutualFriends": 14,
     "posts": [
-      { "id": "post_1", "text": "New digital art piece!", "date": "1 week ago", "hasImage": true },
-      { "id": "post_2", "text": "Art process video", "date": "2 weeks ago", "hasImage": true },
-      { "id": "post_3", "text": "Photo with art club members", "date": "3 weeks ago", "hasImage": true }
+      {
+        "id": "post_1",
+        "text": "New digital art piece!",
+        "date": "1 week ago",
+        "hasImage": true,
+        "likes": 34
+      },
+      {
+        "id": "post_2",
+        "text": "Art process video",
+        "date": "2 weeks ago",
+        "hasImage": true,
+        "likes": 22
+      },
+      {
+        "id": "post_3",
+        "text": "Photo with art club members",
+        "date": "3 weeks ago",
+        "hasImage": true,
+        "likes": 29,
+        "comments": [
+          { "id": "c1", "author": "Lena", "text": "Art club squad!! 🎨" },
+          { "id": "c2", "author": "Noah", "text": "This day was so fun haha" }
+        ]
+      }
     ],
-    "friendsSection": { "count": 198 },
+    "friendsSection": { "count": 32 },
     "photosSection": { "count": 10, "description": "Artwork, art process, selfies with art, group photos" },
     "redFlags": [],
-    "explanationAcceptedCorrect": "This is a real account with authentic content: 1 year old account, 5 mutual friends, consistent art theme, real friend interactions, and personal content over time. The follower/following ratio makes sense for someone who creates art content.",
+    "explanationAcceptedCorrect": "This is a real account with authentic content: 1 year old account, 14 mutual friends, consistent art theme, real friend interactions, and personal content over time. The follower/following ratio makes sense for someone who creates art content.",
     "explanationRejectedWrong": "This was actually a safe account. While caution is good, this profile showed authentic signs: established account, multiple mutual friends, consistent personal content (art), real friend interactions, and a logical reason for more followers (art content). Learn to recognize safe profiles too.",
     "explanationRejectedCorrect": "",
     "explanationAcceptedWrong": ""
@@ -183,27 +343,90 @@
     "bio": "16 | Basketball player | Chill vibes | Hit me up",
     "location": "Your city",
     "accountAge": "Created 1 month ago",
-    "friends": 203,
+    "friends": 116,
     "followers": 178,
     "following": 245,
     "mutualFriends": 3,
     "posts": [
-      { "id": "post_1", "text": "Game day", "date": "1 month ago", "hasImage": true },
-      { "id": "post_2", "text": "New ride", "date": "3 weeks ago", "hasImage": true },
-      { "id": "post_3", "text": "Gains 💪", "date": "2 weeks ago", "hasImage": true },
-      { "id": "post_4", "text": "Who's down to hang out?", "date": "2 weeks ago", "hasImage": false },
-      { "id": "post_5", "text": "Anyone want to video chat?", "date": "10 days ago", "hasImage": false },
-      { "id": "post_6", "text": "Looking for chill people to talk to", "date": "1 week ago", "hasImage": false },
-      { "id": "post_7", "text": "Add me on Snapchat: jasonlee_snap", "date": "5 days ago", "hasImage": false },
-      { "id": "post_8", "text": "Who wants to meet up?", "date": "3 days ago", "hasImage": false },
-      { "id": "post_9", "text": "DM me, I'm bored", "date": "2 days ago", "hasImage": false },
-      { "id": "post_10", "text": "Send me your Snap", "date": "1 day ago", "hasImage": false }
+      {
+        "id": "post_1",
+        "text": "Game day",
+        "date": "1 month ago",
+        "hasImage": true,
+        "likes": 19
+      },
+      {
+        "id": "post_2",
+        "text": "New ride",
+        "date": "3 weeks ago",
+        "hasImage": true,
+        "likes": 14
+      },
+      {
+        "id": "post_3",
+        "text": "Gains 💪",
+        "date": "2 weeks ago",
+        "hasImage": true,
+        "likes": 12
+      },
+      {
+        "id": "post_4",
+        "text": "Who's down to hang out?",
+        "date": "2 weeks ago",
+        "hasImage": false,
+        "likes": 5,
+        "comments": [
+          { "id": "c1", "author": "HangoutSoon", "text": "Let’s meet up this weekend!" }
+        ]
+      },
+      {
+        "id": "post_5",
+        "text": "Anyone want to video chat?",
+        "date": "10 days ago",
+        "hasImage": false,
+        "likes": 4
+      },
+      {
+        "id": "post_6",
+        "text": "Looking for chill people to talk to",
+        "date": "1 week ago",
+        "hasImage": false,
+        "likes": 6
+      },
+      {
+        "id": "post_7",
+        "text": "Add me on Snapchat: jasonlee_snap",
+        "date": "5 days ago",
+        "hasImage": false,
+        "likes": 4
+      },
+      {
+        "id": "post_8",
+        "text": "Who wants to meet up?",
+        "date": "3 days ago",
+        "hasImage": false,
+        "likes": 3
+      },
+      {
+        "id": "post_9",
+        "text": "DM me, I'm bored",
+        "date": "2 days ago",
+        "hasImage": false,
+        "likes": 3
+      },
+      {
+        "id": "post_10",
+        "text": "Send me your Snap",
+        "date": "1 day ago",
+        "hasImage": false,
+        "likes": 2
+      }
     ],
-    "friendsSection": { "count": 203 },
+    "friendsSection": { "count": 116 },
     "photosSection": { "count": 6, "description": "Generic poses (gym, car, basketball); no friends; no personal life" },
     "redFlags": [
-      { "elementKey": "joinedDate", "reason": "Account only 1 month old but already 203 friends (too quick)" },
-      { "elementKey": "friends", "reason": "203 friends in 1 month (suspicious growth)" },
+      { "elementKey": "joinedDate", "reason": "Account only 1 month old but already 116 friends (too quick)" },
+      { "elementKey": "friends", "reason": "116 friends in 1 month (suspicious growth)" },
       { "elementKey": "bio", "reason": "Bio says \"hit me up\" (too eager for contact)" },
       { "elementKey": "section_photos", "reason": "No friends appear in any photos" },
       { "elementKey": "post_4", "reason": "Asks who wants to hang out (push for meet-up)" },
@@ -234,9 +457,32 @@
     "following": 68,
     "mutualFriends": 1,
     "posts": [
-      { "id": "post_1", "text": "Drum kit setup", "date": "2 months ago", "hasImage": true },
-      { "id": "post_2", "text": "Made some friends!", "date": "1 month ago", "hasImage": true },
-      { "id": "post_3", "text": "Concert ticket", "date": "2 weeks ago", "hasImage": true }
+      {
+        "id": "post_1",
+        "text": "Drum kit setup",
+        "date": "2 months ago",
+        "hasImage": true,
+        "likes": 16
+      },
+      {
+        "id": "post_2",
+        "text": "Made some friends!",
+        "date": "1 month ago",
+        "hasImage": true,
+        "likes": 23,
+        "comments": [
+          { "id": "c1", "author": "Milo", "text": "So glad you joined our group 🙌" },
+          { "id": "c2", "author": "Ava", "text": "Band practice next week??" },
+          { "id": "c3", "author": "Dev", "text": "You fit right in already :)" }
+        ]
+      },
+      {
+        "id": "post_3",
+        "text": "Concert ticket",
+        "date": "2 weeks ago",
+        "hasImage": true,
+        "likes": 14
+      }
     ],
     "friendsSection": { "count": 47 },
     "photosSection": { "count": 18, "description": "Same person; drum kit; natural \"new kid\" progression" },
@@ -261,10 +507,40 @@
     "following": 189,
     "mutualFriends": 0,
     "posts": [
-      { "id": "post_1", "text": "New photoshoot!", "date": "1 week ago", "hasImage": true },
-      { "id": "post_2", "text": "Feeling pretty 💕", "date": "5 days ago", "hasImage": true },
-      { "id": "post_3", "text": "Need help with rent, Cash App in bio", "date": "3 days ago", "hasImage": false },
-      { "id": "post_4", "text": "Add me on Snapchat for exclusive content 😘", "date": "1 day ago", "hasImage": false }
+      {
+        "id": "post_1",
+        "text": "New photoshoot!",
+        "date": "1 week ago",
+        "hasImage": true,
+        "likes": 10,
+        "comments": [
+          { "id": "c1", "author": "FanAccount", "text": "OMG you look SO gorgeous 😍" }
+        ]
+      },
+      {
+        "id": "post_2",
+        "text": "Feeling pretty 💕",
+        "date": "5 days ago",
+        "hasImage": true,
+        "likes": 8
+      },
+      {
+        "id": "post_3",
+        "text": "Need help with rent, Cash App in bio",
+        "date": "3 days ago",
+        "hasImage": false,
+        "likes": 3
+      },
+      {
+        "id": "post_4",
+        "text": "Add me on Snapchat for exclusive content 😘",
+        "date": "1 day ago",
+        "hasImage": false,
+        "likes": 4,
+        "comments": [
+          { "id": "c1", "author": "SnapGuy", "text": "Drop your snap in my DMs 😉" }
+        ]
+      }
     ],
     "friendsSection": { "count": 5 },
     "photosSection": { "count": 4, "description": "Professional modeling photos; no casual/personal photos" },
@@ -294,16 +570,38 @@
     "bio": "15 | Track & Field 🏃‍♀️ | 400m runner | Jefferson High | Personal best: 58.2s",
     "location": "Austin, TX",
     "accountAge": "Created 8 months ago",
-    "friends": 156,
+    "friends": 78,
     "followers": 189,
     "following": 142,
-    "mutualFriends": 4,
+    "mutualFriends": 23,
     "posts": [
-      { "id": "post_1", "text": "Track meet results!", "date": "2 weeks ago", "hasImage": true },
-      { "id": "post_2", "text": "Team photo with medals", "date": "1 month ago", "hasImage": true },
-      { "id": "post_3", "text": "Training video", "date": "2 months ago", "hasImage": true }
+      {
+        "id": "post_1",
+        "text": "Track meet results!",
+        "date": "2 weeks ago",
+        "hasImage": true,
+        "likes": 26
+      },
+      {
+        "id": "post_2",
+        "text": "Team photo with medals",
+        "date": "1 month ago",
+        "hasImage": true,
+        "likes": 31,
+        "comments": [
+          { "id": "c1", "author": "Coach P", "text": "Proud of this whole team!" },
+          { "id": "c2", "author": "Riya", "text": "Relay team was insane today 🔥" }
+        ]
+      },
+      {
+        "id": "post_3",
+        "text": "Training video",
+        "date": "2 months ago",
+        "hasImage": true,
+        "likes": 19
+      }
     ],
-    "friendsSection": { "count": 156 },
+    "friendsSection": { "count": 78 },
     "photosSection": { "count": 10, "description": "Track meets, training, team; same person; friends/teammates in photos" },
     "redFlags": [],
     "explanationAcceptedCorrect": "This is an authentic athlete's account: 8 months old, 4 mutual friends, consistent track and field content, teammates in photos, specific details about races and times, and natural athletic community interactions. More followers than following makes sense for someone competing publicly.",
@@ -326,18 +624,93 @@
     "following": 398,
     "mutualFriends": 2,
     "posts": [
-      { "id": "post_1", "text": "My board! 🛹", "date": "6 weeks ago", "hasImage": true },
-      { "id": "post_2", "text": "Vibes", "date": "5 weeks ago", "hasImage": true },
-      { "id": "post_3", "text": "Morning energy ☕", "date": "4 weeks ago", "hasImage": true },
-      { "id": "post_4", "text": "Be yourself!", "date": "3 weeks ago", "hasImage": true },
-      { "id": "post_5", "text": "Beach day", "date": "3 weeks ago", "hasImage": true },
-      { "id": "post_6", "text": "Looking for friends to chat with!", "date": "2 weeks ago", "hasImage": false },
-      { "id": "post_7", "text": "Anyone want to talk?", "date": "2 weeks ago", "hasImage": false },
-      { "id": "post_8", "text": "Bored, DM me!", "date": "1 week ago", "hasImage": false },
-      { "id": "post_9", "text": "Add my Snap: emmarodriguez_23", "date": "1 week ago", "hasImage": false },
-      { "id": "post_10", "text": "Who wants to video chat?", "date": "4 days ago", "hasImage": false },
-      { "id": "post_11", "text": "Looking for people to hang out with", "date": "2 days ago", "hasImage": false },
-      { "id": "post_12", "text": "Message me if you want to talk about anything", "date": "1 day ago", "hasImage": false }
+      {
+        "id": "post_1",
+        "text": "My board! 🛹",
+        "date": "6 weeks ago",
+        "hasImage": true,
+        "likes": 13
+      },
+      {
+        "id": "post_2",
+        "text": "Vibes",
+        "date": "5 weeks ago",
+        "hasImage": true,
+        "likes": 10
+      },
+      {
+        "id": "post_3",
+        "text": "Morning energy ☕",
+        "date": "4 weeks ago",
+        "hasImage": true,
+        "likes": 9
+      },
+      {
+        "id": "post_4",
+        "text": "Be yourself!",
+        "date": "3 weeks ago",
+        "hasImage": true,
+        "likes": 11
+      },
+      {
+        "id": "post_5",
+        "text": "Beach day",
+        "date": "3 weeks ago",
+        "hasImage": true,
+        "likes": 12
+      },
+      {
+        "id": "post_6",
+        "text": "Looking for friends to chat with!",
+        "date": "2 weeks ago",
+        "hasImage": false,
+        "likes": 5,
+        "comments": [
+          { "id": "c1", "author": "Letshang", "text": "We should totally hang out sometime 😏" }
+        ]
+      },
+      {
+        "id": "post_7",
+        "text": "Anyone want to talk?",
+        "date": "2 weeks ago",
+        "hasImage": false,
+        "likes": 4
+      },
+      {
+        "id": "post_8",
+        "text": "Bored, DM me!",
+        "date": "1 week ago",
+        "hasImage": false,
+        "likes": 4
+      },
+      {
+        "id": "post_9",
+        "text": "Add my Snap: emmarodriguez_23",
+        "date": "1 week ago",
+        "hasImage": false,
+        "likes": 3
+      },
+      {
+        "id": "post_10",
+        "text": "Who wants to video chat?",
+        "date": "4 days ago",
+        "hasImage": false,
+        "likes": 3
+      },
+      {
+        "id": "post_11",
+        "text": "Looking for people to hang out with",
+        "date": "2 days ago",
+        "hasImage": false,
+        "likes": 3
+      },
+      {
+        "id": "post_12",
+        "text": "Message me if you want to talk about anything",
+        "date": "1 day ago",
+        "hasImage": false,
+        "likes": 2
+      }
     ],
     "friendsSection": { "count": 234 },
     "photosSection": { "count": 7, "description": "Generic (skateboard, sunset, coffee, beach); no personal/friend photos" },
