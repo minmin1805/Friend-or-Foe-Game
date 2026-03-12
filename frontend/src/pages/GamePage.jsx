@@ -17,7 +17,16 @@ const profilePhotoMap = {
 }
 
 function GamePage() {
-  const { profiles, decisions, setCurrentProfileById } = useFriendOrFoe()
+  const {
+    profiles,
+    decisions,
+    setCurrentProfileById,
+    score,
+    doubleForNextAvailable,
+    doubleForNextActive,
+    doubleForNextUsed,
+    activateDoubleForNext,
+  } = useFriendOrFoe()
   const navigate = useNavigate()
 
   const remainingProfiles = profiles.filter((_, index) => !decisions[index])
@@ -75,6 +84,26 @@ function GamePage() {
           </div>
         </div>
       </div>
+      {/* Double-points power-up bar fixed at bottom */}
+      {( (doubleForNextAvailable || score >= 4000) && !doubleForNextUsed ) && (
+        <div className="fixed bottom-0 left-0 right-0 z-20 bg-purple-700 text-white px-6 py-3 flex items-center justify-between">
+          <p className="text-sm sm:text-base font-semibold">
+            Power‑Up Unlocked: Double points on your next profile decision!
+          </p>
+          <button
+            type="button"
+            disabled={doubleForNextActive}
+            onClick={activateDoubleForNext}
+            className={`px-4 py-2 rounded-lg text-sm font-bold ${
+              doubleForNextActive
+                ? 'bg-green-400 text-purple-900 cursor-default'
+                : 'bg-yellow-300 text-purple-900 hover:bg-yellow-200'
+            }`}
+          >
+            {doubleForNextActive ? 'Double Points Active' : 'Use on Next Profile'}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

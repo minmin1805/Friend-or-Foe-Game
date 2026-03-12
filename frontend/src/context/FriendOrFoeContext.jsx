@@ -52,24 +52,58 @@ function friendOrFoeReducer(state, action) {
       return { ...state, flaggedElements: next }
     }
     case 'SUBMIT_DECISION': {
-      const { profileIndex, decision, roundPoints, correct, explanation, spottedFlags, missedFlags } = action.payload
+      const {
+        profileIndex,
+        decision,
+        roundPoints,
+        correct,
+        explanation,
+        spottedFlags,
+        missedFlags,
+        usedDoubleThisRound,
+        willUnlockDouble,
+      } = action.payload
       const decisions = [...(state.decisions || [])]
       decisions[profileIndex] = decision
+
+      const newScore = state.score + roundPoints
+
+      // Reference note entry for this profile (for notebook popup)
+      const profile = PROFILES[profileIndex]
+      const noteEntry = {
+        profileId: profile?.profileId ?? String(profileIndex + 1),
+        label: profile?.displayName || profile?.username || `Profile ${profileIndex + 1}`,
+        missedKeys: missedFlags ?? [],
+      }
+
       return {
         ...state,
-        score: state.score + roundPoints,
+        score: newScore,
         correctDecisions: state.correctDecisions + (correct ? 1 : 0),
         decisions,
+        doubleForNextAvailable: state.doubleForNextAvailable || willUnlockDouble,
+        doubleForNextActive: usedDoubleThisRound ? false : state.doubleForNextActive,
+        doubleForNextUsed: state.doubleForNextUsed || usedDoubleThisRound,
+        referenceNotes: [...state.referenceNotes, noteEntry],
         pendingFeedback: {
           correct,
           roundPoints,
-          totalScore: state.score + roundPoints,
+          totalScore: newScore,
           explanation,
           decision,
           spottedFlags: spottedFlags ?? [],
           missedFlags: missedFlags ?? [],
           profile: PROFILES[profileIndex] ?? null,
         },
+      }
+    }
+    case 'ACTIVATE_DOUBLE_FOR_NEXT': {
+      if (!state.doubleForNextAvailable || state.doubleForNextUsed) {
+        return state
+      }
+      return {
+        ...state,
+        doubleForNextActive: true,
       }
     }
     case 'GO_TO_NEXT_PROFILE': {
@@ -105,6 +139,12 @@ const initialState = {
   gameComplete: false,
   pendingFeedback: null,
   gameStartedAt: null,
+  // Power-up: double points for next profile
+  doubleForNextAvailable: false,
+  doubleForNextActive: false,
+  doubleForNextUsed: false,
+  // Reference notebook: per-profile reminders based on missed flags
+  referenceNotes: [],
 }
 
 export function FriendOrFoeProvider({ children }) {
@@ -152,10 +192,23 @@ export function FriendOrFoeProvider({ children }) {
     // Apply penalties for incorrect flags: -10 per incorrect flag,
     // but never let the TOTAL score drop below 0.
     const penalty = incorrectFlags.length * PENALTY_PER_INCORRECT_FLAG
-    const tentativeRoundPoints = baseRoundPoints - penalty
-    const tentativeTotal = state.score + tentativeRoundPoints
+    let tentativeRoundPoints = baseRoundPoints - penalty
+    let tentativeTotal = state.score + tentativeRoundPoints
+
+    // Apply double-points power-up if active and not yet used
+    let usedDoubleThisRound = false
+    if (state.doubleForNextActive && !state.doubleForNextUsed) {
+      tentativeRoundPoints *= 2
+      tentativeTotal = state.score + tentativeRoundPoints
+      usedDoubleThisRound = true
+    }
+
     const clampedTotal = Math.max(0, tentativeTotal)
     const roundPoints = clampedTotal - state.score
+
+    // Unlock double-for-next when reaching 4000+ for the first time
+    const willUnlockDouble =
+      !state.doubleForNextAvailable && !state.doubleForNextUsed && clampedTotal >= 4000
 
     dispatch({
       type: 'SUBMIT_DECISION',
@@ -167,9 +220,11 @@ export function FriendOrFoeProvider({ children }) {
         explanation,
         spottedFlags,
         missedFlags,
+        usedDoubleThisRound,
+        willUnlockDouble,
       },
     })
-  }, [state.flaggedElements, state.score])
+  }, [state.flaggedElements, state.score, state.doubleForNextActive, state.doubleForNextUsed, state.doubleForNextAvailable])
 
   const setCurrentProfileById = useCallback((profileId) => {
     dispatch({ type: 'SET_CURRENT_PROFILE_BY_ID', payload: { profileId } })
@@ -197,6 +252,10 @@ export function FriendOrFoeProvider({ children }) {
     dispatch({ type: 'RESET_GAME' })
   }, [])
 
+  const activateDoubleForNext = useCallback(() => {
+    dispatch({ type: 'ACTIVATE_DOUBLE_FOR_NEXT' })
+  }, [])
+
   const value = {
     ...state,
     profiles: PROFILES,
@@ -211,6 +270,7 @@ export function FriendOrFoeProvider({ children }) {
     finishGame,
     getLeaderboard,
     resetGame,
+    activateDoubleForNext,
   }
 
   return (

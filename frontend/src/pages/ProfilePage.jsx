@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Header from '../components/Header'
 import ProfileView from '../components/ProfileView'
@@ -38,7 +38,10 @@ function ProfilePage() {
     profiles,
     decisions,
     setCurrentProfileById,
+    referenceNotes,
   } = useFriendOrFoe()
+
+  const [showNotebook, setShowNotebook] = useState(false)
 
   useEffect(() => {
     if (id) {
@@ -134,6 +137,74 @@ function ProfilePage() {
           ) : (
             <IncorrectPopup feedback={pendingFeedback} onClose={handleCloseFeedback} />
           )}
+        </div>
+      )}
+      {/* Reference notebook trigger */}
+      <button
+        type="button"
+        onClick={() => setShowNotebook(true)}
+        className="fixed top-24 right-6 z-20 rounded-full bg-white shadow-lg border border-purple-200 w-10 h-10 flex items-center justify-center text-purple-700 hover:bg-purple-50"
+        aria-label="Open investigation notebook"
+      >
+        📓
+      </button>
+      {/* Reference notebook popup */}
+      {showNotebook && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-purple-900">Investigation Notebook</h2>
+              <button
+                type="button"
+                onClick={() => setShowNotebook(false)}
+                className="text-sm text-purple-700 hover:underline"
+              >
+                Close
+              </button>
+            </div>
+            <p className="text-sm text-gray-600 mb-4">
+              Reminders based on profiles you have already investigated.
+            </p>
+            <div className="space-y-4">
+              {referenceNotes.map((note) => (
+                <div
+                  key={note.profileId}
+                  className="rounded-xl border border-purple-200 bg-purple-50/60 px-4 py-3"
+                >
+                  <p className="font-semibold text-purple-900 mb-1">
+                    {note.label}
+                  </p>
+                  {note.missedKeys && note.missedKeys.length > 0 ? (
+                    <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                      {note.missedKeys.map((key) => (
+                        <li key={key}>
+                          {key === 'joinedDate' && 'Remember to check how old the account is.'}
+                          {key === 'bio' && 'Remember to read the bio carefully for risky phrases.'}
+                          {key === 'profilePhoto' && 'Look closely at the profile photo (real vs stock vs AI).'}
+                          {key === 'friends' && 'Compare friend count with how long the account has existed.'}
+                          {key === 'mutualFriends' && 'Check how many mutual friends you share.'}
+                          {key === 'following' && 'Look at the followers vs following ratio.'}
+                          {key === 'section_photos' && 'Open the photo section to see if the photos look real and consistent.'}
+                          {key !== 'joinedDate' &&
+                            key !== 'bio' &&
+                            key !== 'profilePhoto' &&
+                            key !== 'friends' &&
+                            key !== 'mutualFriends' &&
+                            key !== 'following' &&
+                            key !== 'section_photos' &&
+                            'Remember to double‑check this part of the profile.'}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-sm text-gray-500">
+                      No reminders for this profile – you spotted everything important.
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

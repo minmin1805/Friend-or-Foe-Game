@@ -35,10 +35,15 @@ function CorrectPopup({ onClose, feedback }) {
 
       <div className="px-6 py-5 space-y-4 text-sm md:text-base text-gray-800">
         {/* Base points */}
-        <div className="text-center flex items-center justify-center">
-          <p className="text-2xl font-semibold tracking-wide text-gray-700">ROUND SCORE:</p>
-          <p className="text-2xl font-extrabold text-green-600 ml-2">
-            {roundScore} points
+        <div className="text-center flex flex-col items-center justify-center">
+          <div className="flex items-center justify-center">
+            <p className="text-2xl font-semibold tracking-wide text-gray-700">ROUND SCORE:</p>
+            <p className="text-2xl font-extrabold text-green-600 ml-2">
+              {roundScore} points
+            </p>
+          </div>
+          <p className="text-xs md:text-sm text-gray-600 mt-1">
+            Includes +50 points for each correctly spotted red flag ({spottedCount} × 50 = {spottedCount * 50} bonus).
           </p>
         </div>
 
@@ -52,7 +57,13 @@ function CorrectPopup({ onClose, feedback }) {
           <ul className="space-y-1 text-sm">
             {spottedReasons.length > 0 ? (
               spottedReasons.map((f) => (
-                <li key={f.elementKey}>✔ {f.reason}</li>
+                <li
+                  key={f.elementKey}
+                  className="flex items-center justify-between gap-2"
+                >
+                  <span>✔ {f.reason}</span>
+                  <span className="text-green-600 font-semibold">+50</span>
+                </li>
               ))
             ) : (
               <li className="text-gray-500 italic">No red flags were flagged.</li>
