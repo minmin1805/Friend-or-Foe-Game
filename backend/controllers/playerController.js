@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import mongoose from "mongoose";
-import Player from "../models/player.js";
+import Player from "../models/Player";
 
 export const createPlayer = async (req, res) => {
   try {
