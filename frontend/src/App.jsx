@@ -8,12 +8,36 @@ import ProfileFriendsPage from './pages/ProfileFriendsPage'
 import ProfilePhotosPage from './pages/ProfilePhotosPage'
 import { FriendOrFoeProvider } from './context/FriendOrFoeContext'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import MusicToggleButton from './components/MusicToggleButton'
+import { SoundProvider, useSounds } from './context/SoundContext'
+import { MusicProvider, useMusic } from './context/MusicContext'
 
-function App() {
+function AppContent() {
+  const { playClickSound, playButtonClickSound } = useSounds()
+  const { startMusic } = useMusic()
+  const location = useLocation()
+
+  useEffect(() => {
+    const handleGlobalClick = (ev) => {
+      if (ev.target.closest('[data-skip-global-click-sound]')) return
+      if (ev.target.closest('button, [role="button"]')) {
+        playButtonClickSound()
+      } else {
+        playClickSound()
+      }
+      // Start background music on first user interaction (autoplay-safe)
+      startMusic()
+    }
+    document.addEventListener('click', handleGlobalClick, true)
+    return () => document.removeEventListener('click', handleGlobalClick, true)
+  }, [playClickSound, playButtonClickSound, startMusic])
+
   return (
-    <FriendOrFoeProvider>
-      <Router>
-        <Routes>
+    <>
+      {location.pathname !== '/' && <MusicToggleButton />}
+      <Routes>
         <Route path="/" element={<ContentWarningPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/instruction" element={<InstructionPage />} />
@@ -22,8 +46,21 @@ function App() {
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/profile/:id/friends" element={<ProfileFriendsPage />} />
         <Route path="/profile/:id/photos" element={<ProfilePhotosPage />} />
-        </Routes>
-      </Router>
+      </Routes>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <FriendOrFoeProvider>
+      <SoundProvider>
+        <MusicProvider>
+          <Router>
+            <AppContent />
+          </Router>
+        </MusicProvider>
+      </SoundProvider>
     </FriendOrFoeProvider>
   )
 }
