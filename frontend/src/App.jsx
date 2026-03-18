@@ -16,6 +16,7 @@ import { MusicProvider, useMusic } from './context/MusicContext'
 
 function AppContent() {
   const { playClickSound, playButtonClickSound } = useSounds()
+  const { startMusic } = useMusic()
   const location = useLocation()
 
   useEffect(() => {
@@ -30,6 +31,12 @@ function AppContent() {
     document.addEventListener('click', handleGlobalClick, true)
     return () => document.removeEventListener('click', handleGlobalClick, true)
   }, [playClickSound, playButtonClickSound])
+
+  // Attempt to start background music automatically (autoplay may still be blocked by the browser).
+  useEffect(() => {
+    if (location.pathname === '/') return
+    startMusic()
+  }, [location.pathname])
 
   return (
     <>

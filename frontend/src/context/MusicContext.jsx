@@ -6,25 +6,38 @@ const MusicContext = createContext(null)
 export function MusicProvider({ children }) {
   const audioRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const isPlayingRef = useRef(false)
+  const [musicEnabled, setMusicEnabled] = useState(true) // user preference (on by default)
+  const musicEnabledRef = useRef(true)
+
+  useEffect(() => {
+    isPlayingRef.current = isPlaying
+  }, [isPlaying])
+
+  useEffect(() => {
+    musicEnabledRef.current = musicEnabled
+  }, [musicEnabled])
 
   const toggleMusic = useCallback(() => {
     const audio = audioRef.current
     if (!audio) return
-    if (isPlaying) {
+    if (isPlayingRef.current) {
       audio.pause()
       setIsPlaying(false)
+      setMusicEnabled(false)
     } else {
       audio.volume = 0.4
       audio.play().then(() => setIsPlaying(true)).catch(() => {})
+      setMusicEnabled(true)
     }
-  }, [isPlaying])
+  }, [])
 
   const startMusic = useCallback(() => {
     const audio = audioRef.current
-    if (!audio || isPlaying) return
+    if (!audio || !musicEnabledRef.current || isPlayingRef.current) return
     audio.volume = 0.4
     audio.play().then(() => setIsPlaying(true)).catch(() => {})
-  }, [isPlaying])
+  }, [])
 
   useEffect(() => {
     return () => {
