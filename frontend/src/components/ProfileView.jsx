@@ -173,12 +173,7 @@ function ProfileView({
 
         {/* Connection Network (Friends) + Photo Section */}
         <div className="grid grid-cols-2 gap-4">
-          <div
-            className={`rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden ${flagClasses(
-              'section_friends',
-            )}`}
-            onClick={() => onToggleFlag && onToggleFlag('section_friends')}
-          >
+          <div className="rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden">
             <div className="px-4 py-2.5 border-b border-purple-200/60 flex items-center gap-2">
               <FaUserPlus className="text-purple-600 text-base" />
               <h2 className="font-semibold text-purple-900 text-sm">Connection Network</h2>

@@ -7,13 +7,91 @@ import { avatarByProfileId } from '../utils/profileAssets'
 function ProfileFriendsPage() {
   const { id } = useParams()
   const profile = profilesData.find((p) => p.profileId === id) ?? null
-  const sidebarAvatar = profile ? avatarByProfileId[String(profile.profileId)] ?? null : null
+  // Placeholder avatars: profile 1 "unknown" avatar for all friend rows (until per-friend art exists)
+  const friendAvatarSrc = avatarByProfileId['1'] ?? null
 
-  // Simple mock: duplicate one friend card 8 times
-  const friendCards = Array.from({ length: 8 }, (_, index) => ({
+  const MAX_FRIENDS_TO_SHOW = 15
+
+  const desiredFriendsCount =
+    typeof profile?.friends === 'number'
+      ? profile.friends
+      : typeof profile?.friendsSection?.count === 'number'
+        ? profile.friendsSection.count
+        : 0
+
+  const seedFriends = Array.isArray(profile?.friendsList) ? profile.friendsList : []
+  const totalMutualFriends = typeof profile?.mutualFriends === 'number' ? profile.mutualFriends : 0
+
+  const firstNames = [
+    'Alex',
+    'Jordan',
+    'Riley',
+    'Taylor',
+    'Maya',
+    'Noah',
+    'Emma',
+    'Ava',
+    'Sam',
+    'Leo',
+    'Chloe',
+    'Nina',
+    'Kai',
+    'Sofia',
+    'Elijah',
+    'Grace',
+    'Logan',
+    'Zoe',
+    'Miles',
+    'Ivy',
+  ]
+  const lastNames = [
+    'Nguyen',
+    'Patel',
+    'Kim',
+    'Reyes',
+    'Wong',
+    'Martinez',
+    'Johnson',
+    'Brown',
+    'Davis',
+    'Garcia',
+    'Wilson',
+    'Clark',
+    'Walker',
+    'Taylor',
+    'Anderson',
+    'Thomas',
+    'Moore',
+    'Harris',
+    'White',
+    'Young',
+  ]
+
+  const makeFriendName = (index) => {
+    const seed = seedFriends[index]
+    if (seed?.name) return seed.name
+    const f = firstNames[index % firstNames.length]
+    const l = lastNames[(index * 7) % lastNames.length]
+    return `${f} ${l}`
+  }
+
+  const makeMutualFriendsForRow = (index) => {
+    if (!totalMutualFriends || totalMutualFriends <= 0) return 0
+    // Make a plausible number of "mutual" connections distributed across rows.
+    if (index < totalMutualFriends) {
+      return 1 + ((index + Number(profile?.profileId || 0)) % 3) // 1..3
+    }
+    return 0
+  }
+
+  const baseFriendCount = desiredFriendsCount || seedFriends.length || 0
+  const shownFriendCount = Math.min(MAX_FRIENDS_TO_SHOW, baseFriendCount)
+  const extraFriendCount = Math.max(0, baseFriendCount - shownFriendCount)
+
+  const friendCards = Array.from({ length: shownFriendCount }, (_, index) => ({
     id: index,
-    name: profile?.displayName || profile?.username || 'Friend',
-    mutualFriends: 0,
+    name: makeFriendName(index),
+    mutualFriends: makeMutualFriendsForRow(index),
   }))
 
   return (
@@ -32,6 +110,11 @@ function ProfileFriendsPage() {
                 <p className="text-sm text-gray-600 mt-1">
                   {friendCards.length} Friends | {profile.mutualFriends || 0} mutual
                 </p>
+                {extraFriendCount > 0 ? (
+                  <p className="text-xs text-purple-700 mt-1">
+                    ... {extraFriendCount} more friends
+                  </p>
+                ) : null}
               </div>
               <div className="rounded-2xl border border-gray-300 py-2 px-4 flex items-center gap-2 h-[44px] bg-white">
                 <input
@@ -48,9 +131,9 @@ function ProfileFriendsPage() {
                   key={friend.id}
                   className="flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-3 shadow-sm"
                 >
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-green-100 flex-shrink-0">
-                    {sidebarAvatar ? (
-                      <img src={sidebarAvatar} alt="" className="w-full h-full object-cover" />
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-green-100 shrink-0">
+                    {friendAvatarSrc ? (
+                      <img src={friendAvatarSrc} alt="" className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs font-semibold">
                         ?

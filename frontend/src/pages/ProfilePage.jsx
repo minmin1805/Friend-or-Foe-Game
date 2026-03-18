@@ -42,10 +42,10 @@ function ProfilePage() {
 
   const profile = currentProfile
 
-  const friendAvatars = Object.keys(avatarByProfileId)
-    .sort((a, b) => Number(a) - Number(b))
-    .slice(0, 3)
-    .map((id) => avatarByProfileId[id])
+  const unknownFriendAvatar = avatarByProfileId['1']
+  const friendAvatars = unknownFriendAvatar
+    ? [unknownFriendAvatar, unknownFriendAvatar, unknownFriendAvatar]
+    : []
 
   const photoThumbnails = getPhotosForProfileId(profile?.profileId).slice(0, 3)
 
@@ -150,7 +150,7 @@ function ProfilePage() {
       <button
         type="button"
         onClick={() => setShowNotebook(true)}
-        className="fixed top-24 right-6 z-20 rounded-full bg-white shadow-lg border border-purple-200 w-10 h-10 flex items-center justify-center text-purple-700 hover:bg-purple-50"
+        className="fixed top-40 right-6 z-20 rounded-full bg-white shadow-lg border border-purple-200 w-10 h-10 flex items-center justify-center text-purple-700 hover:bg-purple-50"
         aria-label="Open investigation notebook"
       >
         📓

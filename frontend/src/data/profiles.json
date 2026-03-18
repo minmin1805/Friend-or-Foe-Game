@@ -43,6 +43,20 @@
       }
     ],
     "friendsSection": { "count": 12 },
+    "friendsList": [
+      { "name": "Jordan Kessler", "mutualFriends": 0 },
+      { "name": "Riley Tran", "mutualFriends": 0 },
+      { "name": "Casey Morales", "mutualFriends": 0 },
+      { "name": "Sam Okonkwo", "mutualFriends": 0 },
+      { "name": "Morgan Bell", "mutualFriends": 0 },
+      { "name": "Jamie Foster", "mutualFriends": 0 },
+      { "name": "Taylor Singh", "mutualFriends": 0 },
+      { "name": "Drew Nakamura", "mutualFriends": 0 },
+      { "name": "Avery Costa", "mutualFriends": 0 },
+      { "name": "Quinn Reeves", "mutualFriends": 0 },
+      { "name": "Blake Andersen", "mutualFriends": 0 },
+      { "name": "Skyler Park", "mutualFriends": 0 }
+    ],
     "photosSection": { "count": 0, "description": "Empty" },
     "redFlags": [
       { "elementKey": "profilePhoto", "reason": "No profile photo" },
@@ -115,6 +129,15 @@
       }
     ],
     "friendsSection": { "count": 7 },
+    "friendsList": [
+      { "name": "Maya Lindstrom", "mutualFriends": 1 },
+      { "name": "Zoe Franklin", "mutualFriends": 0 },
+      { "name": "Lily Hammond", "mutualFriends": 0 },
+      { "name": "Nina Calderon", "mutualFriends": 0 },
+      { "name": "Eva Marsh", "mutualFriends": 0 },
+      { "name": "Mia Roth", "mutualFriends": 0 },
+      { "name": "Ruby Shah", "mutualFriends": 0 }
+    ],
     "photosSection": { "count": 4, "description": "Stock photos (beach, sunset, food, flowers)" },
     "redFlags": [
       { "elementKey": "profilePhoto", "reason": "Profile photo is a stock image" },
@@ -200,6 +223,20 @@
       }
     ],
     "friendsSection": { "count": 30 },
+    "friendsList": [
+      { "name": "Noah Bennett", "mutualFriends": 14 },
+      { "name": "Ethan Cole", "mutualFriends": 11 },
+      { "name": "Logan Reyes", "mutualFriends": 9 },
+      { "name": "Caleb Wright", "mutualFriends": 15 },
+      { "name": "Owen Hart", "mutualFriends": 10 },
+      { "name": "Mason Price", "mutualFriends": 12 },
+      { "name": "Lucas Kim", "mutualFriends": 13 },
+      { "name": "Jack Sullivan", "mutualFriends": 8 },
+      { "name": "Ben Carter", "mutualFriends": 16 },
+      { "name": "Will Patterson", "mutualFriends": 11 },
+      { "name": "Henry Diaz", "mutualFriends": 9 },
+      { "name": "Alex Rivera", "mutualFriends": 12 }
+    ],
     "photosSection": { "count": 10, "description": "Selfies, friends, sports, hobbies; same person; natural teen content" },
     "redFlags": [],
     "explanationAcceptedCorrect": "This account shows signs of a real person: authentic personal photos, account that's 2 years old, 12 mutual friends, consistent posts over time, and natural friend interactions. This is what a real teen profile looks like.",
@@ -283,6 +320,11 @@
       }
     ],
     "friendsSection": { "count": 3 },
+    "friendsList": [
+      { "name": "Ashley Nguyen", "mutualFriends": 0 },
+      { "name": "Brianna Olsen", "mutualFriends": 0 },
+      { "name": "Caitlyn Brooks", "mutualFriends": 1 }
+    ],
     "photosSection": { "count": 8, "description": "Mix of generic content; only 1 selfie; no friends in photos" },
     "redFlags": [
       { "elementKey": "profilePhoto", "reason": "Unknown/default avatar (not a clear real teen photo)" },
@@ -358,6 +400,20 @@
       }
     ],
     "friendsSection": { "count": 32 },
+    "friendsList": [
+      { "name": "Lena Volkov", "mutualFriends": 16 },
+      { "name": "Noah Patel", "mutualFriends": 12 },
+      { "name": "Sofia Grant", "mutualFriends": 14 },
+      { "name": "Devon Miles", "mutualFriends": 11 },
+      { "name": "Priya Nair", "mutualFriends": 15 },
+      { "name": "Marcus Webb", "mutualFriends": 13 },
+      { "name": "Elise Hartman", "mutualFriends": 10 },
+      { "name": "Theo Brennan", "mutualFriends": 17 },
+      { "name": "Jade Liu", "mutualFriends": 12 },
+      { "name": "Felix Romero", "mutualFriends": 14 },
+      { "name": "Nora Klein", "mutualFriends": 11 },
+      { "name": "Isaac Boone", "mutualFriends": 13 }
+    ],
     "photosSection": { "count": 10, "description": "Artwork, art process, selfies with art, group photos" },
     "redFlags": [],
     "explanationAcceptedCorrect": "This is a real account with authentic content: 1 year old account, 14 mutual friends, consistent art theme, real friend interactions, and personal content over time. The follower/following ratio makes sense for someone who creates art content.",
@@ -455,6 +511,20 @@
       }
     ],
     "friendsSection": { "count": 116 },
+    "friendsList": [
+      { "name": "Chris Dalton", "mutualFriends": 0 },
+      { "name": "Tyler Banks", "mutualFriends": 1 },
+      { "name": "Ryan Moss", "mutualFriends": 0 },
+      { "name": "Dylan Cross", "mutualFriends": 2 },
+      { "name": "Jake Holloway", "mutualFriends": 0 },
+      { "name": "Brandon Pike", "mutualFriends": 1 },
+      { "name": "Kyle Trent", "mutualFriends": 0 },
+      { "name": "Matt Frost", "mutualFriends": 0 },
+      { "name": "Sean Blake", "mutualFriends": 3 },
+      { "name": "Eric Vaughn", "mutualFriends": 1 },
+      { "name": "Nick Santos", "mutualFriends": 0 },
+      { "name": "Josh Penn", "mutualFriends": 2 }
+    ],
     "photosSection": { "count": 6, "description": "Generic poses (gym, car, basketball); no friends; no personal life" },
     "redFlags": [
       { "elementKey": "joinedDate", "reason": "Account only 1 month old but already 116 friends (too quick)" },
@@ -530,6 +600,20 @@
       }
     ],
     "friendsSection": { "count": 47 },
+    "friendsList": [
+      { "name": "Milo Sandoval", "mutualFriends": 1 },
+      { "name": "Ava Lindgren", "mutualFriends": 0 },
+      { "name": "Dev Sharma", "mutualFriends": 0 },
+      { "name": "Rex Coleman", "mutualFriends": 2 },
+      { "name": "Sam Okada", "mutualFriends": 0 },
+      { "name": "Izzy Morales", "mutualFriends": 1 },
+      { "name": "Nico Alvarez", "mutualFriends": 0 },
+      { "name": "Gray Thompson", "mutualFriends": 0 },
+      { "name": "Remy Cho", "mutualFriends": 2 },
+      { "name": "Parker Lee", "mutualFriends": 0 },
+      { "name": "Finn O'Brien", "mutualFriends": 1 },
+      { "name": "River Santos", "mutualFriends": 0 }
+    ],
     "photosSection": { "count": 18, "description": "Same person; drum kit; natural \"new kid\" progression" },
     "redFlags": [],
     "explanationAcceptedCorrect": "Great judgment. While the account is only 2 months old and has fewer friends, that fits someone new to the area. The profile shows authentic personal photos, consistent drum/music theme, natural friend-making progression, and real interactions. New doesn't always mean fake – look at the full context.",
@@ -603,6 +687,13 @@
       }
     ],
     "friendsSection": { "count": 5 },
+    "friendsList": [
+      { "name": "Vanessa Cruz", "mutualFriends": 0 },
+      { "name": "Tiffany Wu", "mutualFriends": 0 },
+      { "name": "Destiny Hall", "mutualFriends": 0 },
+      { "name": "Jasmine Ford", "mutualFriends": 0 },
+      { "name": "Monica Reyes", "mutualFriends": 0 }
+    ],
     "photosSection": { "count": 4, "description": "Professional modeling photos; no casual/personal photos" },
     "redFlags": [
       { "elementKey": "joinedDate", "reason": "Brand new account (1 week old)" },
@@ -669,6 +760,20 @@
       }
     ],
     "friendsSection": { "count": 78 },
+    "friendsList": [
+      { "name": "Riya Kapoor", "mutualFriends": 24 },
+      { "name": "Morgan Ellis", "mutualFriends": 21 },
+      { "name": "Sydney Brooks", "mutualFriends": 26 },
+      { "name": "Kendall Price", "mutualFriends": 19 },
+      { "name": "Tessa Nguyen", "mutualFriends": 22 },
+      { "name": "Jordan Hayes", "mutualFriends": 25 },
+      { "name": "Camila Ruiz", "mutualFriends": 20 },
+      { "name": "Peyton Ward", "mutualFriends": 23 },
+      { "name": "Aaliyah Brown", "mutualFriends": 27 },
+      { "name": "Nia Jefferson", "mutualFriends": 18 },
+      { "name": "Chloe Martin", "mutualFriends": 22 },
+      { "name": "Dakota Silva", "mutualFriends": 24 }
+    ],
     "photosSection": { "count": 10, "description": "Track meets, training, team; same person; friends/teammates in photos" },
     "redFlags": [],
     "explanationAcceptedCorrect": "This is an authentic athlete's account: 8 months old, 4 mutual friends, consistent track and field content, teammates in photos, specific details about races and times, and natural athletic community interactions. More followers than following makes sense for someone competing publicly.",
@@ -686,7 +791,7 @@
     "bio": "14 | Skateboarder 🛹 | Love meeting cool people | Add me let's chat!",
     "location": "San Diego, CA",
     "accountAge": "Created 6 weeks ago",
-    "friends": 234,
+    "friends": 102,
     "followers": 127,
     "following": 398,
     "mutualFriends": 2,
@@ -779,7 +884,21 @@
         "likes": 2
       }
     ],
-    "friendsSection": { "count": 234 },
+    "friendsSection": { "count": 102 },
+    "friendsList": [
+      { "name": "Kai Morrison", "mutualFriends": 1 },
+      { "name": "Blake Turner", "mutualFriends": 0 },
+      { "name": "Reese Dalton", "mutualFriends": 2 },
+      { "name": "Casey Vance", "mutualFriends": 0 },
+      { "name": "Jamie Knox", "mutualFriends": 1 },
+      { "name": "Avery Sloan", "mutualFriends": 0 },
+      { "name": "Rowan Blake", "mutualFriends": 3 },
+      { "name": "Sage Porter", "mutualFriends": 0 },
+      { "name": "Emerson Reed", "mutualFriends": 1 },
+      { "name": "Quinn Hale", "mutualFriends": 0 },
+      { "name": "Dakota Finn", "mutualFriends": 2 },
+      { "name": "Phoenix Gray", "mutualFriends": 0 }
+    ],
     "photosSection": { "count": 7, "description": "Generic (skateboard, sunset, coffee, beach); no personal/friend photos" },
     "redFlags": [
       { "elementKey": "joinedDate", "reason": "Account 6 weeks old but already 234 friends (adding rapidly)" },
