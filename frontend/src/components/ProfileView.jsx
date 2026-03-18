@@ -62,7 +62,7 @@ function ProfileView({
   return (
     <>
       {/* Left column */}
-      <div className="w-[380px] shrink-0 flex flex-col gap-5">
+      <div className="w-full min-w-0 lg:w-[380px] lg:shrink-0 flex flex-col gap-4 lg:gap-5">
         {/* Profile Overview */}
         <div className="rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden">
           <div className="px-5 py-3 border-b border-purple-200/60 flex items-center gap-2">
@@ -172,7 +172,7 @@ function ProfileView({
         </div>
 
         {/* Connection Network (Friends) + Photo Section */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-4">
           <div className="rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden">
             <div className="px-4 py-2.5 border-b border-purple-200/60 flex items-center gap-2">
               <FaUserPlus className="text-purple-600 text-base" />
@@ -243,7 +243,7 @@ function ProfileView({
       </div>
 
       {/* Right column - Activity Posts (from profile.posts) */}
-      <div className="flex-1 min-w-0 flex flex-col gap-5">
+      <div className="flex-1 min-w-0 flex flex-col gap-4 lg:gap-5 pb-2 lg:pb-0">
         <div className="rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden">
           <div className="px-5 py-3 border-b border-purple-200/60 flex items-center gap-2">
             <FaComment className="text-purple-600 text-lg" />

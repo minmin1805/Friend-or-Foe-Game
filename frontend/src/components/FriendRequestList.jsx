@@ -27,10 +27,10 @@ function FriendRequestList({ profiles = [], profilePhotoMap = {}, onSelectProfil
         return (
           <div
             key={profile.profileId}
-            className={`flex justify-between items-center w-full py-5 px-6 ${index < profiles.length - 1 ? 'border-b border-gray-200' : ''}`}
+            className={`flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center w-full py-4 px-4 sm:py-5 sm:px-6 ${index < profiles.length - 1 ? 'border-b border-gray-200' : ''}`}
           >
-            <div className="flex items-center gap-4 min-w-0 flex-1">
-              <div className={`shrink-0 w-16 h-16 rounded-full overflow-hidden ${bgClass}`}>
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+              <div className={`shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden ${bgClass}`}>
                 {photoSrc ? (
                   <img src={photoSrc} alt="" className="w-full h-full object-cover" />
                 ) : (
@@ -40,17 +40,17 @@ function FriendRequestList({ profiles = [], profilePhotoMap = {}, onSelectProfil
                 )}
               </div>
               <div className="flex flex-col gap-0.5 min-w-0">
-                <h2 className="text-xl font-bold text-gray-900 truncate">
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900 truncate">
                   {profile.displayName || profile.username}
                 </h2>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-xs sm:text-sm">
                   {profile.mutualFriends} mutual {profile.mutualFriends === 1 ? 'friend' : 'friends'}
                 </p>
-                <p className="text-gray-500 text-sm truncate">{profile.bio}</p>
+                <p className="text-gray-500 text-xs sm:text-sm line-clamp-2 sm:truncate">{profile.bio}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="flex items-center justify-end gap-2 sm:gap-3 shrink-0 w-full sm:w-auto border-t border-gray-100 pt-3 sm:border-0 sm:pt-0">
               <button
                 type="button"
                 className="p-1.5 text-gray-600 hover:bg-gray-100 rounded-full"
@@ -58,22 +58,19 @@ function FriendRequestList({ profiles = [], profilePhotoMap = {}, onSelectProfil
               >
                 <FaEllipsisH className="text-lg" />
               </button>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (onSelectProfile) {
-                      onSelectProfile(profile)
-                    } else {
-                      navigate(`/profile/${profile.profileId}`)
-                    }
-                  }}
-                  className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-300"
-                >
-                  View Profile
-                </button>
-                
-              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (onSelectProfile) {
+                    onSelectProfile(profile)
+                  } else {
+                    navigate(`/profile/${profile.profileId}`)
+                  }
+                }}
+                className="flex-1 sm:flex-none bg-gray-200 text-gray-800 px-4 py-2.5 rounded-md text-sm font-medium hover:bg-gray-300 text-center"
+              >
+                View Profile
+              </button>
             </div>
           </div>
         )

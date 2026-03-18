@@ -154,7 +154,7 @@ function ProfilePage() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-100 via-purple-50 to-purple-100">
       <Header />
 
-      <main className="flex-1 flex gap-6 p-6 pb-24 max-w-7xl mx-auto w-full">
+      <main className="flex-1 flex flex-col lg:flex-row gap-4 lg:gap-6 px-3 pt-3 pb-40 sm:px-4 sm:pt-4 sm:pb-36 lg:p-6 lg:pb-28 max-w-7xl mx-auto w-full min-w-0">
         {profile ? (
           <>
             <ProfileView
@@ -177,33 +177,39 @@ function ProfilePage() {
       </main>
 
       {/* Investigation Panel - fixed at bottom edge */}
-      <div className="fixed bottom-0 left-0 right-0 z-10 rounded-t-2xl bg-purple-50 border-t border-purple-200/60 shadow-[0_-4px_20px_rgba(147,51,234,0.15)] px-6 py-4 flex items-center justify-between max-w-7xl mx-auto">
-        <div className="flex items-center gap-2">
-          <FaSearch className="text-purple-600 text-xl" />
-          <h2 className="font-semibold text-purple-900">Investigation Panel</h2>
-        </div>
-        <p className="text-gray-700 text-sm">Click suspicious elements to flag them, then accept or reject.</p>
-        <div className="flex gap-3">
-          <button
-            type="button"
-            className="px-5 py-2.5 rounded-xl bg-red-500 text-white font-medium text-sm hover:bg-red-600 transition-colors"
-            onClick={() => handleDecision('reject')}
-          >
-            ✕ Reject Request
-          </button>
-          <button
-            type="button"
-            className="px-5 py-2.5 rounded-xl bg-green-500 text-white font-medium text-sm hover:bg-green-600 transition-colors"
-            onClick={() => handleDecision('accept')}
-          >
-            ✓ Accept Request
-          </button>
+      <div className="fixed bottom-0 left-0 right-0 z-10 rounded-t-2xl bg-purple-50 border-t border-purple-200/60 shadow-[0_-4px_20px_rgba(147,51,234,0.15)] px-3 py-3 sm:px-5 sm:py-4 max-w-7xl mx-auto w-full">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+          <div className="flex items-start gap-2 min-w-0">
+            <FaSearch className="text-purple-600 text-lg sm:text-xl shrink-0 mt-0.5" />
+            <div>
+              <h2 className="font-semibold text-purple-900 text-sm sm:text-base">Investigation Panel</h2>
+              <p className="text-gray-600 text-xs sm:text-sm leading-snug">
+                Tap to flag suspicious spots, then Accept or Reject.
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
+            <button
+              type="button"
+              className="flex-1 sm:flex-none px-3 py-2.5 sm:px-5 rounded-xl bg-red-500 text-white font-medium text-xs sm:text-sm hover:bg-red-600 transition-colors"
+              onClick={() => handleDecision('reject')}
+            >
+              ✕ Reject
+            </button>
+            <button
+              type="button"
+              className="flex-1 sm:flex-none px-3 py-2.5 sm:px-5 rounded-xl bg-green-500 text-white font-medium text-xs sm:text-sm hover:bg-green-600 transition-colors"
+              onClick={() => handleDecision('accept')}
+            >
+              ✓ Accept
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Centered feedback popups with dimmed background */}
       {pendingFeedback && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/40">
+        <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/40 p-4 overflow-y-auto">
           {pendingFeedback.correct ? (
             <CorrectPopup feedback={pendingFeedback} onClose={handleCloseFeedback} />
           ) : (
@@ -215,7 +221,7 @@ function ProfilePage() {
       <button
         type="button"
         onClick={() => setShowNotebook(true)}
-        className="fixed top-40 right-6 z-20 rounded-full bg-white shadow-lg border border-purple-200 w-10 h-10 flex items-center justify-center text-purple-700 hover:bg-purple-50"
+        className="fixed bottom-32 right-4 sm:bottom-auto sm:top-40 sm:right-6 z-20 rounded-full bg-white shadow-lg border border-purple-200 w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center text-purple-700 hover:bg-purple-50 touch-manipulation"
         aria-label="Open investigation notebook"
       >
         📓
@@ -223,7 +229,7 @@ function ProfilePage() {
       {/* Reference notebook popup */}
       {showNotebook && (
         <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-[calc(100%-2rem)] sm:w-full mx-2 sm:mx-0 max-h-[85vh] overflow-y-auto p-4 sm:p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-purple-900">Investigation Notebook</h2>
               <button

@@ -10,16 +10,32 @@ export default function MusicToggleButton() {
       type="button"
       onClick={toggleMusic}
       data-skip-global-click-sound
-      className="fixed bottom-3 left-3 max-[430px]:top-1.5 max-[430px]:right-1.5 z-50 flex items-center gap-1.5 max-[430px]:gap-0 px-2.5 py-2 max-[430px]:px-1 max-[430px]:py-0.5 rounded-lg max-[430px]:rounded-md bg-white/90 hover:bg-white shadow-md border border-gray-200 transition-colors"
+      className={[
+        // z-50 above most UI; must not set BOTH top+bottom (would stretch full height on mobile)
+        'fixed z-50 flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white/95 shadow-md transition-colors',
+        'hover:bg-white active:scale-95 touch-manipulation',
+        // Mobile: single corner (top + right only) — explicit size so nothing expands
+        'right-3 top-3 h-11 w-11 p-0 sm:h-auto sm:w-auto sm:p-2.5',
+        // Desktop / larger phones: bottom-left with optional label
+        'sm:bottom-4 sm:left-4 sm:right-auto sm:top-auto',
+      ].join(' ')}
       aria-label={isPlaying ? 'Mute music' : 'Play music'}
       title={isPlaying ? 'Mute music' : 'Play music'}
     >
-      <SiYoutubemusic className={`w-7 h-7 max-[430px]:w-4 max-[430px]:h-4 text-red-600 ${isPlaying ? '' : 'opacity-60'}`} />
-      <span className="text-sm max-[430px]:hidden font-semibold text-gray-700">
+      <SiYoutubemusic
+        className={`h-6 w-6 shrink-0 text-red-600 sm:h-7 sm:w-7 ${isPlaying ? '' : 'opacity-60'}`}
+      />
+      <span className="hidden font-semibold text-gray-700 sm:inline text-sm">
         {isPlaying ? 'Music on' : 'Toggle on music'}
       </span>
       {!isPlaying && (
-        <svg className="w-4 h-4 max-[430px]:hidden text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg
+          className="hidden h-4 w-4 text-gray-600 sm:block"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden
+        >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
       )}

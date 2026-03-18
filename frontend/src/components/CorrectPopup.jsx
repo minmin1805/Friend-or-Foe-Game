@@ -21,15 +21,14 @@ function CorrectPopup({ onClose, feedback }) {
   const explanation = feedback?.explanation
 
   return (
-    <div className="bg-blue-100 p-3 rounded-2xl max-h-[90vh] overflow-y-auto">
-    <div className="relative w-full max-w-md md:max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden">
+    <div className="bg-blue-100 p-2 sm:p-3 rounded-2xl max-h-[90vh] overflow-y-auto w-full max-w-[calc(100vw-2rem)] sm:max-w-none mx-auto">
+    <div className="relative w-full max-w-md md:max-w-lg bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
       {/* Header */}
-      <div className="bg-green-800 text-white px-6 py-4 text-center flex items-center">
-        <img src={tickImage} alt="tick" className='w-16 h-16 mr-6' />
-        <div className='flex flex-col '>
-
-        <p className="text-sm md:text-3xl font-semibold tracking-wide">CORRECT DECISION!</p>
-        <p className="text-lg md:text-2xl font-bold mt-1">Great Detective Work!</p>
+      <div className="bg-green-800 text-white px-4 py-3 sm:px-6 sm:py-4 flex flex-col sm:flex-row items-center gap-3 sm:gap-0 text-center sm:text-left">
+        <img src={tickImage} alt="" className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 sm:mr-6" />
+        <div className="flex flex-col min-w-0">
+          <p className="text-base sm:text-xl md:text-3xl font-semibold tracking-wide">CORRECT DECISION!</p>
+          <p className="text-base sm:text-lg md:text-2xl font-bold mt-1">Great Detective Work!</p>
         </div>
       </div>
 

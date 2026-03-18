@@ -54,6 +54,7 @@ export function MusicProvider({ children }) {
         src={bgMusicSrc}
         loop
         preload="auto"
+        className="hidden"
         aria-hidden
       />
       {children}

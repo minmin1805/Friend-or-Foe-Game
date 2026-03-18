@@ -98,12 +98,12 @@ function ProfileFriendsPage() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-100 via-purple-50 to-purple-100">
       <Header />
 
-      <main className="flex-1 max-w-5xl mx-auto w-full px-8 pb-24 pt-10">
+      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-28 pt-6 sm:pt-10">
         {profile ? (
           <>
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h1 className="text-2xl font-semibold text-gray-900">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mb-6">
+              <div className="min-w-0">
+                <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 break-words">
                   {profile.displayName || profile.username}
                   {"'"}s Friends
                 </h1>
@@ -116,11 +116,11 @@ function ProfileFriendsPage() {
                   </p>
                 ) : null}
               </div>
-              <div className="rounded-2xl border border-gray-300 py-2 px-4 flex items-center gap-2 h-[44px] bg-white">
+              <div className="rounded-2xl border border-gray-300 py-2 px-4 flex items-center gap-2 h-[44px] bg-white w-full sm:w-64 shrink-0">
                 <input
                   type="text"
                   placeholder="Search"
-                  className="w-full outline-none bg-transparent text-sm"
+                  className="w-full min-w-0 outline-none bg-transparent text-sm"
                 />
               </div>
             </div>

@@ -78,7 +78,7 @@ function InstructionPage() {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-100 via-purple-50/80 to-indigo-50/90">
+    <div className="relative min-h-screen min-h-dvh bg-gradient-to-b from-purple-100 via-purple-50/80 to-indigo-50/90">
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(circle_at_50%_50%,_#7c3aed_1px,_transparent_1px)] bg-[length:24px_24px]" aria-hidden="true" />
 
@@ -289,11 +289,11 @@ function InstructionPage() {
       </div>
 
       {/* CTA – fixed at bottom */}
-      <div className="fixed bottom-0 left-0 right-0 z-10 bg-white/95 border-t border-purple-200/80 shadow-[0_-4px_20px_rgba(147,51,234,0.1)] px-5 py-5 flex justify-center">
+      <div className="fixed bottom-0 left-0 right-0 z-10 bg-white/95 border-t border-purple-200/80 shadow-[0_-4px_20px_rgba(147,51,234,0.1)] px-4 py-4 sm:px-5 sm:py-5 flex justify-center ">
         <button
           type="button"
           onClick={() => navigate('/game')}
-          className="w-full max-w-lg px-8 py-4 rounded-xl bg-purple-600 text-white font-bold text-xl shadow-lg shadow-purple-300/50 hover:bg-purple-700 hover:shadow-purple-400/40 transition-all"
+          className="w-full max-w-lg px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl bg-purple-600 text-white font-bold text-lg sm:text-xl shadow-lg shadow-purple-300/50 hover:bg-purple-700 hover:shadow-purple-400/40 transition-all"
         >
           Start the investigation
         </button>
