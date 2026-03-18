@@ -14,6 +14,71 @@ import { FaSearch } from 'react-icons/fa'
 
 const profilePhotoMap = { ...avatarByProfileId, default: null }
 
+const NOTEBOOK_STATIC = {
+  joinedDate: 'Remember to check how old the account is.',
+  bio: 'Remember to read the bio carefully for risky phrases.',
+  profilePhoto: 'Look closely at the profile photo (real vs stock vs AI).',
+  friends: 'Compare friend count with how long the account has existed.',
+  mutualFriends: 'Check how many mutual friends you share.',
+  following: 'Look at the followers vs following ratio.',
+  username: 'Check whether the username looks generic or like a bot/scam account.',
+  section_photos: 'Open the photo section to see if the photos look real and consistent.',
+}
+
+/**
+ * Notebook reminders: no duplicate generic lines; group multiple missed posts into one block
+ * with specific reasons from profiles.json.
+ */
+function getNotebookReminderItems(note, profiles) {
+  const profile = profiles.find((p) => String(p.profileId) === String(note.profileId))
+  const keys = note.missedKeys || []
+  if (keys.length === 0) return []
+
+  const postKeys = keys.filter((k) => String(k).startsWith('post_'))
+  const otherKeys = keys.filter((k) => !String(k).startsWith('post_'))
+
+  const simpleLines = []
+  const seen = new Set()
+
+  for (const key of otherKeys) {
+    const rf = profile?.redFlags?.find((r) => r.elementKey === key)
+    const text = rf?.reason || NOTEBOOK_STATIC[key] || `Review this part of the profile (${key}).`
+    if (seen.has(text)) continue
+    seen.add(text)
+    simpleLines.push(text)
+  }
+
+  if (postKeys.length === 0) {
+    return simpleLines.map((text) => ({ kind: 'line', text }))
+  }
+
+  const postReasons = postKeys
+    .map((k) => profile?.redFlags?.find((r) => r.elementKey === k)?.reason)
+    .filter(Boolean)
+  const uniqueReasons = [...new Set(postReasons)]
+
+  if (postKeys.length === 1) {
+    const text =
+      uniqueReasons[0] ||
+      'Review that activity post for risky language (DMs, meet-ups, video chat, or other apps).'
+    if (!seen.has(text)) simpleLines.push(text)
+    return simpleLines.map((text) => ({ kind: 'line', text }))
+  }
+
+  // Several missed post flags → one grouped entry (unique reasons only)
+  const postBlock = {
+    kind: 'posts',
+    count: postKeys.length,
+    reasons:
+      uniqueReasons.length > 0
+        ? uniqueReasons
+        : [
+            'Meet-up asks, video chat, DMs, or moving to Snapchat/other apps — re-read each post in the activity feed.',
+          ],
+  }
+  return [...simpleLines.map((text) => ({ kind: 'line', text })), postBlock]
+}
+
 function ProfilePage() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -173,7 +238,9 @@ function ProfilePage() {
               Reminders based on profiles you have already investigated.
             </p>
             <div className="space-y-4">
-              {referenceNotes.map((note) => (
+              {referenceNotes.map((note) => {
+                const reminderItems = getNotebookReminderItems(note, profiles)
+                return (
                 <div
                   key={note.profileId}
                   className="rounded-xl border border-purple-200 bg-purple-50/60 px-4 py-3"
@@ -181,27 +248,26 @@ function ProfilePage() {
                   <p className="font-semibold text-purple-900 mb-1">
                     {note.label}
                   </p>
-                  {note.missedKeys && note.missedKeys.length > 0 ? (
-                    <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
-                      {note.missedKeys.map((key) => (
-                        <li key={key}>
-                          {key === 'joinedDate' && 'Remember to check how old the account is.'}
-                          {key === 'bio' && 'Remember to read the bio carefully for risky phrases.'}
-                          {key === 'profilePhoto' && 'Look closely at the profile photo (real vs stock vs AI).'}
-                          {key === 'friends' && 'Compare friend count with how long the account has existed.'}
-                          {key === 'mutualFriends' && 'Check how many mutual friends you share.'}
-                          {key === 'following' && 'Look at the followers vs following ratio.'}
-                          {key === 'section_photos' && 'Open the photo section to see if the photos look real and consistent.'}
-                          {key !== 'joinedDate' &&
-                            key !== 'bio' &&
-                            key !== 'profilePhoto' &&
-                            key !== 'friends' &&
-                            key !== 'mutualFriends' &&
-                            key !== 'following' &&
-                            key !== 'section_photos' &&
-                            'Remember to double‑check this part of the profile.'}
-                        </li>
-                      ))}
+                  {reminderItems.length > 0 ? (
+                    <ul className="list-disc list-inside text-sm text-gray-700 space-y-2">
+                      {reminderItems.map((item, i) =>
+                        item.kind === 'posts' ? (
+                          <li key={`${note.profileId}-posts-${i}`} className="list-none -ml-4 sm:ml-0">
+                            <span className="font-medium text-purple-900">Activity posts</span>
+                            <span className="text-gray-700">
+                              {' '}
+                              — you missed {item.count} flagged posts. Look for:
+                            </span>
+                            <ul className="list-disc list-inside ml-4 mt-1.5 space-y-0.5 text-gray-700">
+                              {item.reasons.map((r, j) => (
+                                <li key={`${note.profileId}-pr-${j}`}>{r}</li>
+                              ))}
+                            </ul>
+                          </li>
+                        ) : (
+                          <li key={`${note.profileId}-${i}`}>{item.text}</li>
+                        ),
+                      )}
                     </ul>
                   ) : (
                     <p className="text-sm text-gray-500">
@@ -209,7 +275,8 @@ function ProfilePage() {
                     </p>
                   )}
                 </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </div>

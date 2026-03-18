@@ -11,6 +11,22 @@ const PENALTY_PER_INCORRECT_FLAG = 10
 
 const FriendOrFoeContext = createContext(null)
 
+/** Notebook reminder for a missed red-flag key (uses profile data when available). */
+function missedFlagReminderText(profile, elementKey) {
+  const rf = (profile?.redFlags || []).find((r) => r.elementKey === elementKey)
+  if (rf?.reason) return rf.reason
+  if (elementKey?.startsWith?.('post_')) {
+    return 'Review that activity post for risky language (DMs, meet-ups, video chat, or moving to other apps).'
+  }
+  if (elementKey === 'username') {
+    return 'Check whether the username looks generic, random, or like a bot/scam account.'
+  }
+  if (elementKey === 'followers') {
+    return 'Compare followers vs following — a huge imbalance can be a red flag.'
+  }
+  return `Review this part of the profile (${elementKey}).`
+}
+
 function friendOrFoeReducer(state, action) {
   switch (action.type) {
     case 'CREATE_PLAYER': {
@@ -70,10 +86,13 @@ function friendOrFoeReducer(state, action) {
 
       // Reference note entry for this profile (for notebook popup)
       const profile = PROFILES[profileIndex]
+      const missedKeys = missedFlags ?? []
+      const missedReminders = missedKeys.map((key) => missedFlagReminderText(profile, key))
       const noteEntry = {
         profileId: profile?.profileId ?? String(profileIndex + 1),
         label: profile?.displayName || profile?.username || `Profile ${profileIndex + 1}`,
-        missedKeys: missedFlags ?? [],
+        missedKeys: missedKeys,
+        missedReminders,
       }
 
       return {
