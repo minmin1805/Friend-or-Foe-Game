@@ -50,8 +50,7 @@
       { "elementKey": "joinedDate", "reason": "Brand new account (3 days old)" },
       { "elementKey": "friends", "reason": "Very few friends (12)" },
       { "elementKey": "mutualFriends", "reason": "No mutual friends" },
-      { "elementKey": "following", "reason": "Following 247 but only 8 followers (suspicious ratio)" },
-      { "elementKey": "section_photos", "reason": "No photos in gallery (empty gallery)" }
+      { "elementKey": "following", "reason": "Following 247 but only 8 followers (suspicious ratio)" }
     ],
     "explanationRejectedCorrect": "This profile has 7 major red flags: no profile photo, brand new account, no mutual friends, and a suspicious follower ratio. Predators often create profiles like this to quickly add many teens.",
     "explanationAcceptedWrong": "This profile had 7 red flags you might have missed: no profile photo, very new account (3 days), no mutual friends, very few friends but following 247 people, no photos, and generic posts. Never accept requests from accounts with multiple red flags.",
@@ -121,7 +120,6 @@
       { "elementKey": "profilePhoto", "reason": "Profile photo is a stock image" },
       { "elementKey": "joinedDate", "reason": "Very new account (2 weeks)" },
       { "elementKey": "mutualFriends", "reason": "Only 1 mutual friend" },
-      { "elementKey": "section_photos", "reason": "All photos are stock images; no personal content" },
       { "elementKey": "bio", "reason": "Bio says \"DM open\" (inviting messages from strangers)" },
       { "elementKey": "post_1", "reason": "Generic post; stock image" },
       { "elementKey": "post_2", "reason": "Generic post; stock image" },
@@ -178,6 +176,27 @@
           { "id": "c2", "author": "Jess", "text": "We should print this one!" },
           { "id": "c3", "author": "Coach L", "text": "Great to see everyone smiling." }
         ]
+      },
+      {
+        "id": "post_4",
+        "text": "Gaming setup upgrade!",
+        "date": "4 weeks ago",
+        "hasImage": true,
+        "likes": 18
+      },
+      {
+        "id": "post_5",
+        "text": "Casual selfie with my soccer ball.",
+        "date": "2 weeks ago",
+        "hasImage": true,
+        "likes": 16
+      },
+      {
+        "id": "post_6",
+        "text": "Just keeping up with training at home.",
+        "date": "5 weeks ago",
+        "hasImage": true,
+        "likes": 14
       }
     ],
     "friendsSection": { "count": 30 },
@@ -266,21 +285,20 @@
     "friendsSection": { "count": 3 },
     "photosSection": { "count": 8, "description": "Mix of generic content; only 1 selfie; no friends in photos" },
     "redFlags": [
+      { "elementKey": "profilePhoto", "reason": "Unknown/default avatar (not a clear real teen photo)" },
       { "elementKey": "following", "reason": "Following 423 but only 89 followers (mass-adding)" },
       { "elementKey": "joinedDate", "reason": "Account only 3 months old" },
       { "elementKey": "mutualFriends", "reason": "Only 1 mutual friends" },
-      { "elementKey": "section_photos", "reason": "No friends in any photos; generic content only" },
       { "elementKey": "post_1", "reason": "Generic post; no personal details" },
       { "elementKey": "post_2", "reason": "Generic post; no personal details" },
       { "elementKey": "post_3", "reason": "Generic post; no personal details" },
-      { "elementKey": "post_4", "reason": "Only one selfie in whole profile" },
       { "elementKey": "post_5", "reason": "Generic post; no personal details" },
       { "elementKey": "post_6", "reason": "Asks for DMs/chat (suspicious)" },
       { "elementKey": "post_7", "reason": "Asks for new friends to talk to (suspicious)" },
       { "elementKey": "post_8", "reason": "Invites DMs (suspicious)" }
     ],
-    "explanationRejectedCorrect": "Sharp detective skills. While this profile looked more convincing, you spotted the red flags: following way more people than follow back, recent posts all asking for DMs, no friends in any photos, and generic content. Predators create \"convincing\" profiles to seem trustworthy.",
-    "explanationAcceptedWrong": "This was a tricky one. The profile seemed okay but had multiple red flags: following 423 people but only 89 followers (mass-adding), recent posts all ask for DMs/chats, no friends in photos, generic posts with no personal details, and a relatively new account. Be extra careful with accounts that seem too friendly or eager to chat.",
+    "explanationRejectedCorrect": "Sharp detective skills. While this profile looked more convincing, you spotted the red flags: unknown/default avatar, following way more people than follow back, recent posts all asking for DMs, and generic content. Predators create \"convincing\" profiles to seem trustworthy.",
+    "explanationAcceptedWrong": "This was a tricky one. The profile seemed okay but had multiple red flags: unknown/default avatar, following 423 people but only 89 followers (mass-adding), recent posts all ask for DMs/chats, no friends in photos, generic posts with no personal details, and a relatively new account. Be extra careful with accounts that seem too friendly or eager to chat.",
     "explanationAcceptedCorrect": "",
     "explanationRejectedWrong": ""
   },
@@ -323,6 +341,20 @@
           { "id": "c1", "author": "Lena", "text": "Art club squad!! 🎨" },
           { "id": "c2", "author": "Noah", "text": "This day was so fun haha" }
         ]
+      },
+      {
+        "id": "post_4",
+        "text": "Selfie with my sketchbook.",
+        "date": "4 weeks ago",
+        "hasImage": true,
+        "likes": 18
+      },
+      {
+        "id": "post_5",
+        "text": "Art club friends!",
+        "date": "5 weeks ago",
+        "hasImage": true,
+        "likes": 20
       }
     ],
     "friendsSection": { "count": 32 },
@@ -428,7 +460,6 @@
       { "elementKey": "joinedDate", "reason": "Account only 1 month old but already 116 friends (too quick)" },
       { "elementKey": "friends", "reason": "116 friends in 1 month (suspicious growth)" },
       { "elementKey": "bio", "reason": "Bio says \"hit me up\" (too eager for contact)" },
-      { "elementKey": "section_photos", "reason": "No friends appear in any photos" },
       { "elementKey": "post_4", "reason": "Asks who wants to hang out (push for meet-up)" },
       { "elementKey": "post_5", "reason": "Asks for video chat (push for private communication)" },
       { "elementKey": "post_6", "reason": "Looking for people to talk to (eager to chat)" },
@@ -437,8 +468,8 @@
       { "elementKey": "post_9", "reason": "Asks for DMs (push for private messaging)" },
       { "elementKey": "post_10", "reason": "Asks for Snap (push for off-platform)" }
     ],
-    "explanationRejectedCorrect": "This profile showed classic predator grooming tactics: new account that added 203 people in 1 month, posts asking to meet up or video chat, pushing for Snapchat (where messages disappear), no friends in photos, and escalating requests for private communication. Predators create profiles that look like attractive teens to gain trust.",
-    "explanationAcceptedWrong": "This was a predator account. Red flags you missed: account rapidly added 200+ friends in 1 month, multiple posts asking to chat/meet/video call, tried to move conversation to Snapchat, no real friends in photos, and increasingly pushy about private communication. Be very suspicious of accounts that seem too eager to connect privately.",
+    "explanationRejectedCorrect": "This profile showed classic predator grooming tactics: new account that added 203 people in 1 month, posts asking to meet up or video chat, pushing for Snapchat (where messages disappear), and escalating requests for private communication. Predators create profiles that look like attractive teens to gain trust.",
+    "explanationAcceptedWrong": "This was a predator account. Red flags you missed: account rapidly added 200+ friends in 1 month, multiple posts asking to chat/meet/video call, tried to move conversation to Snapchat, and increasingly pushy about private communication. Be very suspicious of accounts that seem too eager to connect privately.",
     "explanationAcceptedCorrect": "",
     "explanationRejectedWrong": ""
   },
@@ -482,6 +513,20 @@
         "date": "2 weeks ago",
         "hasImage": true,
         "likes": 14
+      },
+      {
+        "id": "post_4",
+        "text": "New band friends at practice!",
+        "date": "3 weeks ago",
+        "hasImage": true,
+        "likes": 12
+      },
+      {
+        "id": "post_5",
+        "text": "Concert night memories.",
+        "date": "1 week ago",
+        "hasImage": true,
+        "likes": 15
       }
     ],
     "friendsSection": { "count": 47 },
@@ -541,22 +586,37 @@
           { "id": "c1", "author": "SnapGuy", "text": "Drop your snap in my DMs 😉" }
         ]
       }
+      ,
+      {
+        "id": "post_5",
+        "text": "LA vibes 🌴",
+        "date": "2 days ago",
+        "hasImage": true,
+        "likes": 10
+      },
+      {
+        "id": "post_6",
+        "text": "Shopping time 🛍️",
+        "date": "4 days ago",
+        "hasImage": true,
+        "likes": 8
+      }
     ],
     "friendsSection": { "count": 5 },
     "photosSection": { "count": 4, "description": "Professional modeling photos; no casual/personal photos" },
     "redFlags": [
-      { "elementKey": "profilePhoto", "reason": "Professional model photo (not authentic teen content)" },
       { "elementKey": "joinedDate", "reason": "Brand new account (1 week old)" },
       { "elementKey": "friends", "reason": "Only 5 friends (extremely suspicious)" },
       { "elementKey": "mutualFriends", "reason": "No mutual friends" },
       { "elementKey": "following", "reason": "Following 189 people (mass adding)" },
       { "elementKey": "bio", "reason": "Cash App in bio (asking for money)" },
-      { "elementKey": "section_photos", "reason": "All professional modeling photos; no personal content" },
       { "elementKey": "post_3", "reason": "Post requests money/tips (Cash App)" },
-      { "elementKey": "post_4", "reason": "Pushes for Snapchat \"exclusive content\"" }
+      { "elementKey": "post_4", "reason": "Pushes for Snapchat \"exclusive content\"" },
+      { "elementKey": "post_5", "reason": "Generic stock image (LA vibes); no personal teen context" },
+      { "elementKey": "post_6", "reason": "Generic stock image (shopping time); no personal teen context" }
     ],
-    "explanationRejectedCorrect": "This is clearly a scam account: professional model photos, brand new account (1 week), Cash App in bio requesting money, only 5 friends, and pushing for \"exclusive content\" on Snapchat. This is not a real teen – it's likely a scammer or predator using stolen model photos.",
-    "explanationAcceptedWrong": "This was a dangerous scam account. Red flags: professional model photos (not real teen selfies), account only 1 week old, Cash App requesting money in bio, only 5 friends, posts asking for tips/money, and pushing Snapchat for \"exclusive content.\" Never accept accounts that ask for money or have professional photos with very new accounts.",
+    "explanationRejectedCorrect": "This is clearly a scam account: brand new account (1 week), Cash App in bio requesting money, only 5 friends, no mutual friends, pushing for \"exclusive content\" on Snapchat, and generic stock-image posts (LA vibes + shopping time) with no personal teen context. The photo gallery also lacks casual/personal context.",
+    "explanationAcceptedWrong": "This was a dangerous scam account. Red flags: account only 1 week old, Cash App requesting money in bio, only 5 friends, posts asking for tips/money, pushing Snapchat for \"exclusive content,\" and generic stock-image posts (LA vibes + shopping time) instead of real personal context. Never accept accounts that ask for money or lack real personal context.",
     "explanationAcceptedCorrect": "",
     "explanationRejectedWrong": ""
   },
@@ -599,6 +659,13 @@
         "date": "2 months ago",
         "hasImage": true,
         "likes": 19
+      },
+      {
+        "id": "post_4",
+        "text": "Close-up: spikes and lane time!",
+        "date": "3 weeks ago",
+        "hasImage": true,
+        "likes": 12
       }
     ],
     "friendsSection": { "count": 78 },
@@ -647,7 +714,7 @@
       },
       {
         "id": "post_4",
-        "text": "Be yourself!",
+        "text": "My skate collection! 🛹",
         "date": "3 weeks ago",
         "hasImage": true,
         "likes": 11
@@ -656,7 +723,7 @@
         "id": "post_5",
         "text": "Beach day",
         "date": "3 weeks ago",
-        "hasImage": true,
+        "hasImage": false,
         "likes": 12
       },
       {
@@ -715,13 +782,11 @@
     "friendsSection": { "count": 234 },
     "photosSection": { "count": 7, "description": "Generic (skateboard, sunset, coffee, beach); no personal/friend photos" },
     "redFlags": [
-      { "elementKey": "profilePhoto", "reason": "Profile photo may be AI-generated (too perfect, slightly uncanny)" },
       { "elementKey": "joinedDate", "reason": "Account 6 weeks old but already 234 friends (adding rapidly)" },
       { "elementKey": "friends", "reason": "234 friends in 6 weeks (suspicious growth)" },
       { "elementKey": "following", "reason": "Following 398 (mass-adding behavior)" },
       { "elementKey": "mutualFriends", "reason": "Only 2 mutual friends (weak connection)" },
       { "elementKey": "bio", "reason": "Very generic; \"Add me let's chat!\" (eager for contact)" },
-      { "elementKey": "section_photos", "reason": "No friends in any photos; photos seem from different sources" },
       { "elementKey": "post_6", "reason": "Asks for friends to chat (suspicious)" },
       { "elementKey": "post_7", "reason": "Asks who wants to talk (suspicious)" },
       { "elementKey": "post_8", "reason": "Asks for DMs (suspicious)" },
@@ -730,8 +795,8 @@
       { "elementKey": "post_11", "reason": "Looking for people to hang out (suspicious)" },
       { "elementKey": "post_12", "reason": "Invites messages about anything (suspicious)" }
     ],
-    "explanationRejectedCorrect": "This was a sophisticated fake using an AI-generated-style profile photo. Red flags: account added 234 friends in 6 weeks, following 398 (mass adding), recent posts all push for DMs/video chat/Snapchat, no friends in any photos, and photos seem from different sources. Predators now use AI to create realistic-looking fake profiles.",
-    "explanationAcceptedWrong": "This was an AI-style fake. Red flags you missed: profile photo may be AI-generated (look closely at the face), account rapidly added 234 friends in 6 weeks, following way more than followers, last several posts all ask for chats/DMs/video calls, pushes for Snapchat, no real friends in any photo, and posts escalate to pushing private communication. Be very careful with accounts that seem too eager to connect privately.",
+    "explanationRejectedCorrect": "This was a sophisticated scam/fake. Red flags: account added 234 friends in 6 weeks, following 398 (mass adding), recent posts all push for DMs/video chat/Snapchat, and the account escalates to private communication.",
+    "explanationAcceptedWrong": "This was a scam/fake. Red flags you missed: account rapidly added 234 friends in 6 weeks, following way more than followers, last several posts all ask for chats/DMs/video calls, pushes for Snapchat, and posts escalate to pushing private communication. Be very careful with accounts that seem too eager to connect privately.",
     "explanationAcceptedCorrect": "",
     "explanationRejectedWrong": ""
   }

@@ -16,7 +16,6 @@ import { MusicProvider, useMusic } from './context/MusicContext'
 
 function AppContent() {
   const { playClickSound, playButtonClickSound } = useSounds()
-  const { startMusic } = useMusic()
   const location = useLocation()
 
   useEffect(() => {
@@ -27,12 +26,10 @@ function AppContent() {
       } else {
         playClickSound()
       }
-      // Start background music on first user interaction (autoplay-safe)
-      startMusic()
     }
     document.addEventListener('click', handleGlobalClick, true)
     return () => document.removeEventListener('click', handleGlobalClick, true)
-  }, [playClickSound, playButtonClickSound, startMusic])
+  }, [playClickSound, playButtonClickSound])
 
   return (
     <>

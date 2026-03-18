@@ -2,11 +2,12 @@ import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Header from '../components/Header'
 import profilesData from '../data/profiles.json'
-import person1 from '../assets/Images/GamePage/person1.png'
+import { avatarByProfileId } from '../utils/profileAssets'
 
 function ProfileFriendsPage() {
   const { id } = useParams()
   const profile = profilesData.find((p) => p.profileId === id) ?? null
+  const sidebarAvatar = profile ? avatarByProfileId[String(profile.profileId)] ?? null : null
 
   // Simple mock: duplicate one friend card 8 times
   const friendCards = Array.from({ length: 8 }, (_, index) => ({
@@ -48,7 +49,13 @@ function ProfileFriendsPage() {
                   className="flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-3 shadow-sm"
                 >
                   <div className="w-12 h-12 rounded-full overflow-hidden bg-green-100 flex-shrink-0">
-                    <img src={person1} alt="" className="w-full h-full object-cover" />
+                    {sidebarAvatar ? (
+                      <img src={sidebarAvatar} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs font-semibold">
+                        ?
+                      </div>
+                    )}
                   </div>
                   <div className="flex flex-col min-w-0">
                     <p className="text-sm font-semibold text-gray-900 truncate">{friend.name}</p>

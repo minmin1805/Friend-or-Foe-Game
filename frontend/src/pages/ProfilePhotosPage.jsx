@@ -2,17 +2,14 @@ import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Header from '../components/Header'
 import profilesData from '../data/profiles.json'
-import person1 from '../assets/Images/GamePage/person1.png'
-import stockImage1 from '../assets/Images/ProfilePage/stock1.jpeg'
-import stockImage2 from '../assets/Images/ProfilePage/stock2.jpg'
-import stockImage3 from '../assets/Images/ProfilePage/stock3.jpeg'
-import postStockImage from '../assets/Images/ProfilePage/postStockImage.jpeg'
+import { avatarByProfileId, getPhotosForProfileId } from '../utils/profileAssets'
 
 function ProfilePhotosPage() {
   const { id } = useParams()
   const profile = profilesData.find((p) => p.profileId === id) ?? null
 
-  const photos = [postStockImage, stockImage1, stockImage2, stockImage3, stockImage1]
+  const photos = profile ? getPhotosForProfileId(profile.profileId) : []
+  const sidebarAvatar = profile ? avatarByProfileId[String(profile.profileId)] ?? null : null
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-100 via-purple-50 to-purple-100">
@@ -24,7 +21,13 @@ function ProfilePhotosPage() {
             {/* Left sidebar */}
             <aside className="w-64 shrink-0 rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 p-4 flex flex-col items-center">
               <div className="w-20 h-20 rounded-full overflow-hidden bg-purple-100 ring-2 ring-purple-200">
-                <img src={person1} alt="" className="w-full h-full object-cover" />
+                {sidebarAvatar ? (
+                  <img src={sidebarAvatar} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm font-semibold">
+                    ?
+                  </div>
+                )}
               </div>
               <h2 className="mt-3 text-lg font-semibold text-gray-900">
                 {profile.displayName || profile.username}

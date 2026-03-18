@@ -5,16 +5,9 @@ import { SlMagnifier } from 'react-icons/sl'
 import FriendRequestList from '../components/FriendRequestList'
 import { useFriendOrFoe } from '../context/FriendOrFoeContext'
 import { useNavigate } from 'react-router-dom'
-import person1 from '../assets/Images/GamePage/person1.png'
-import person2 from '../assets/Images/GamePage/person2.png'
-import person3 from '../assets/Images/GamePage/person3.png'
+import { avatarByProfileId } from '../utils/profileAssets'
 
-const profilePhotoMap = {
-  person1,
-  person2,
-  person3,
-  default: null,
-}
+const profilePhotoMap = { ...avatarByProfileId, default: null }
 
 function GamePage() {
   const {

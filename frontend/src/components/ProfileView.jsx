@@ -30,6 +30,7 @@ function ProfileView({
   profilePhotoMap = {},
   friendAvatars = [],
   photoThumbnails = [],
+  postImages = {},
   onViewAllFriends,
   onViewAllPhotos,
   flaggedSet,
@@ -39,11 +40,15 @@ function ProfileView({
 
   const [expandedPostId, setExpandedPostId] = useState(null)
 
-  const photoSrc = profilePhotoMap[profile.profilePhotoKey] ?? profilePhotoMap.default ?? null
+  const photoSrc = profilePhotoMap[String(profile.profileId)] ?? profilePhotoMap.default ?? null
   const friendsCount = profile.friendsSection?.count ?? profile.friends ?? 0
   const photosCount = profile.photosSection?.count ?? 0
 
   const isFlagged = (key) => (flaggedSet && flaggedSet.has ? flaggedSet.has(key) : false)
+
+  // Only allow flagging "section_photos" when the current profile marks it as a red flag.
+  const isSectionPhotosFlaggable =
+    !!onToggleFlag && (profile.redFlags || []).some((f) => f.elementKey === 'section_photos')
 
   const flagClasses = (key) =>
     onToggleFlag
@@ -205,10 +210,10 @@ function ProfileView({
           </div>
 
           <div
-            className={`rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden ${flagClasses(
-              'section_photos',
-            )}`}
-            onClick={() => onToggleFlag && onToggleFlag('section_photos')}
+            className={`rounded-2xl bg-purple-50/90 border border-purple-200/60 shadow-lg shadow-purple-200/40 overflow-hidden ${
+              isSectionPhotosFlaggable ? flagClasses('section_photos') : ''
+            }`}
+            onClick={isSectionPhotosFlaggable ? () => onToggleFlag && onToggleFlag('section_photos') : undefined}
           >
             <div className="px-4 py-2.5 border-b border-purple-200/60 flex items-center gap-2">
               <FaImages className="text-purple-600 text-base" />
@@ -279,14 +284,20 @@ function ProfileView({
                   </div>
                   <p className="text-gray-700 text-sm">{post.text}</p>
                   {post.hasImage ? (
-                    <div className="w-full h-32 rounded-lg bg-purple-100/50 border border-purple-200/50 flex items-center justify-center text-gray-500 text-sm">
-                      [Image]
+                    <div className="w-full rounded-lg bg-purple-100/50 border border-purple-200/50 overflow-hidden">
+                      {postImages?.[post.id] ? (
+                        <img
+                          src={postImages[post.id]}
+                          alt=""
+                          className="w-full max-h-96 h-auto object-contain block"
+                        />
+                      ) : (
+                        <div className="w-full py-8 flex items-center justify-center text-gray-500 text-sm">
+                          [Image]
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div className="w-full h-20 rounded-lg bg-purple-100/30 border border-purple-200/50 flex items-center justify-center text-gray-400 text-xs">
-                      No image
-                    </div>
-                  )}
+                  ) : null}
                   <div className="flex items-center gap-4 pt-1">
                     <span className="flex items-center gap-1 text-sm text-gray-600">
                       <FaStar className="text-amber-400" />

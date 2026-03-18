@@ -20,7 +20,8 @@ function FriendRequestList({ profiles = [], profilePhotoMap = {}, onSelectProfil
   return (
     <div className="rounded-lg border border-gray-300 bg-white overflow-hidden">
       {profiles.map((profile, index) => {
-        const photoSrc = profilePhotoMap[profile.profilePhotoKey] ?? profilePhotoMap.default ?? null
+        const photoSrc =
+          profilePhotoMap?.[profile.profileId] ?? profilePhotoMap.default ?? null
         const bgClass = getAvatarBg(index)
 
         return (

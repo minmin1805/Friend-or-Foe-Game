@@ -5,23 +5,14 @@ import ProfileView from '../components/ProfileView'
 import CorrectPopup from '../components/CorrectPopup'
 import IncorrectPopup from '../components/IncorrectPopup'
 import { useFriendOrFoe } from '../context/FriendOrFoeContext'
-import person1 from '../assets/Images/GamePage/person1.png'
-import person2 from '../assets/Images/GamePage/person2.png'
-import person3 from '../assets/Images/GamePage/person3.png'
-import stockImage1 from '../assets/Images/ProfilePage/stock1.jpeg'
-import stockImage2 from '../assets/Images/ProfilePage/stock2.jpg'
-import stockImage3 from '../assets/Images/ProfilePage/stock3.jpeg'
+import {
+  avatarByProfileId,
+  getPhotosForProfileId,
+  photoSrcByProfileIdAndNumber,
+} from '../utils/profileAssets'
 import { FaSearch } from 'react-icons/fa'
 
-const profilePhotoMap = {
-  person1,
-  person2,
-  person3,
-  default: null,
-}
-
-const friendAvatars = [person1, person2, person3]
-const photoThumbnails = [stockImage1, stockImage2, stockImage3]
+const profilePhotoMap = { ...avatarByProfileId, default: null }
 
 function ProfilePage() {
   const { id } = useParams()
@@ -50,6 +41,21 @@ function ProfilePage() {
   }, [id, setCurrentProfileById])
 
   const profile = currentProfile
+
+  const friendAvatars = Object.keys(avatarByProfileId)
+    .sort((a, b) => Number(a) - Number(b))
+    .slice(0, 3)
+    .map((id) => avatarByProfileId[id])
+
+  const photoThumbnails = getPhotosForProfileId(profile?.profileId).slice(0, 3)
+
+  const postImages = {}
+  ;(profile?.posts || []).forEach((p) => {
+    if (!p?.hasImage) return
+    const n = Number(String(p.id).replace('post_', ''))
+    const src = photoSrcByProfileIdAndNumber?.[String(profile.profileId)]?.[n]
+    if (src) postImages[p.id] = src
+  })
 
   const handleViewAllFriends = () => {
     if (!profile) return
@@ -91,6 +97,7 @@ function ProfilePage() {
               profilePhotoMap={profilePhotoMap}
               friendAvatars={friendAvatars}
               photoThumbnails={photoThumbnails}
+              postImages={postImages}
               onViewAllFriends={handleViewAllFriends}
               onViewAllPhotos={handleViewAllPhotos}
               flaggedSet={flaggedSetForCurrent}
