@@ -140,7 +140,7 @@
     ],
     "photosSection": { "count": 4, "description": "Stock photos (beach, sunset, food, flowers)" },
     "redFlags": [
-      { "elementKey": "profilePhoto", "reason": "Profile photo is a stock image" },
+      { "elementKey": "profilePhoto", "reason": "Profile photo looks AI-stylized/overly polished (uncanny, not a natural teen selfie)" },
       { "elementKey": "joinedDate", "reason": "Very new account (2 weeks)" },
       { "elementKey": "mutualFriends", "reason": "Only 1 mutual friend" },
       { "elementKey": "bio", "reason": "Bio says \"DM open\" (inviting messages from strangers)" },
@@ -150,8 +150,8 @@
       { "elementKey": "post_4", "reason": "Generic post; stock image" },
       { "elementKey": "post_5", "reason": "Generic post; asks to chat" }
     ],
-    "explanationRejectedCorrect": "The profile photo is a stock image, the account is only 2 weeks old, and all the photos in the gallery are stock images with no personal content. Predators use stock photos to create fake profiles that look attractive and trustworthy.",
-    "explanationAcceptedWrong": "This account seemed okay at first but had 6+ red flags: stock photo profile picture, very new account (2 weeks), only 1 mutual friend, all posts use stock images, no personal photos, and bio invites DMs from strangers. Always investigate profile photos carefully.",
+    "explanationRejectedCorrect": "Great catch. The profile photo looks AI-stylized and uncanny rather than like a natural teen selfie, the account is only 2 weeks old, and the gallery/posts are generic stock-style content with little real personal context. Predators and scammers often use polished, artificial-looking images to seem trustworthy.",
+    "explanationAcceptedWrong": "This account seemed okay at first but had multiple red flags: uncanny AI-stylized profile picture, very new account (2 weeks), only 1 mutual friend, generic stock-style posts/photos, and a bio inviting DMs from strangers. Always check whether profile photos look natural and authentic.",
     "explanationAcceptedCorrect": "",
     "explanationRejectedWrong": ""
   },
