@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import legitAvatarExample from '../assets/Images/ProfilePage/ProfileImages/Profile3-alex/avatar.png'
 import {
   FaBook,
   FaLightbulb,
@@ -111,6 +112,24 @@ function InstructionPage() {
           </div>
         </section>
 
+        <section className="mb-10 rounded-2xl border-2 border-purple-200/80 bg-white/90 shadow-lg shadow-purple-200/30 p-6 sm:p-8">
+          <h2 className="text-2xl font-bold text-purple-900 mb-3">How Profile Images Work in This Game</h2>
+          <div className="flex flex-col sm:flex-row items-start gap-4">
+            <div className="shrink-0 mx-auto sm:mx-0">
+              <img
+                src={legitAvatarExample}
+                alt="Example of a consistent, legit-style profile avatar"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-purple-200 shadow-sm"
+              />
+              <p className="text-[11px] sm:text-xs text-center text-gray-500 mt-1">Legit-style example</p>
+            </div>
+            <p className="text-sm sm:text-base text-gray-700 leading-relaxed sm:mt-3">
+              Avatars and post photos in this game are generated images. Safer profiles usually show one
+              consistent cartoon-style person; overly polished or uncanny “almost real” faces can be a red flag.
+            </p>
+          </div>
+        </section>
+
         <section className="mb-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="rounded-2xl border-2 col-span-2 border-purple-200/80 bg-white/90 shadow-lg shadow-purple-200/30 p-6 sm:p-8">
             <h2 className="text-2xl font-bold text-purple-900 mb-4">Scoring</h2>
@@ -153,7 +172,6 @@ function InstructionPage() {
           <div className="rounded-2xl bg-purple-50 border border-purple-200/80 px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
             <div className="flex items-center gap-2 text-purple-900 text-sm font-medium">
               <FaSearch className="text-purple-600" />
-              <span>Flags: 3</span>
             </div>
             <div className="flex gap-2">
               <button type="button" className="px-3 py-1.5 rounded-lg bg-red-500/90 text-white text-xs sm:text-sm font-semibold">
@@ -166,7 +184,7 @@ function InstructionPage() {
           </div>
         </section>
 
-        <section className="mb-10 rounded-2xl border-2 border-purple-200/80 bg-white/90 shadow-lg shadow-purple-200/30 p-6 sm:p-7 flex flex-col gap-4">
+        <section className=" mb-20 rounded-2xl border-2 border-purple-200/80 bg-white/90 shadow-lg shadow-purple-200/30 p-6 sm:p-7 flex flex-col gap-4">
           <div className="flex items-center gap-5">
             <div className="w-16 h-16 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 shrink-0">
               <FaBook className="text-3xl" />
@@ -183,11 +201,6 @@ function InstructionPage() {
           </div>
         </section>
 
-        <section className="rounded-2xl bg-purple-100/80 border border-purple-200/80 p-6 sm:p-7 text-center mb-16">
-          <p className="text-base sm:text-lg text-purple-900 font-medium leading-relaxed">
-            It is okay to reject strangers online. If anyone pushes for private chat, money, or meeting up, tell a trusted adult. These skills work in real life too.
-          </p>
-        </section>
       </div>
 
       {/* CTA – fixed at bottom */}
