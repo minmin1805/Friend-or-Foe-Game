@@ -19,9 +19,15 @@ function ContentWarningPage() {
           </h1>
         </div>
         <p className="text-white text-lg leading-relaxed mb-4">
-        This game is an educational simulation designed to promote awareness of online safety and risks related to digital communication, including issues connected to human trafficking. All characters, scenarios, and interactions presented within the game are fictional and created solely for instructional purposes. The content is not intended to portray real individuals, real events, or actual social media platforms.
-The game does not provide legal advice, mental health advice, or emergency guidance. Participants who feel unsafe, have experienced exploitation, or believe someone may be at risk should contact a trusted adult or seek immediate assistance from local authorities or qualified professionals.
-By using this game, players acknowledge that they understand its purpose is educational and agree to engage with the content responsibly.
+          This game is an educational simulation about online safety and digital risks. All characters, scenarios,
+          and interactions are fictional and do not represent real people, events, or social media platforms.
+          <br />
+          <br />
+          This content is not legal, mental health, or emergency advice. If you feel unsafe, have experienced
+          exploitation, or think someone may be at risk, contact a trusted adult or local authorities immediately.
+          <br />
+          <br />
+          By continuing, you agree to use this game for learning and engage with the content responsibly.
         </p>
         <button
           onClick={handleContinue}
