@@ -8,6 +8,7 @@ import logo from "../assets/Images/EndGamePage/logo.png";
 import safetyScoutImage from "../assets/Images/EndGamePage/safetyScoutImage.png";
 import cyberDetectiveImage from "../assets/Images/EndGamePage/cyberDetective.png";
 import expertInvestigatorImage from "../assets/Images/EndGamePage/expertInvestigatorImage.png";
+import safetyChecklistPdf from "../assets/PDF/pdf.pdf";
 import { useFriendOrFoe } from "../context/FriendOrFoeContext";
 
 
@@ -70,8 +71,12 @@ function EndgamePage() {
   }, [profiles, flaggedElements, gameStartedAt, decisions, correctDecisions]);
 
   const handleDownloadChecklist = () => {
-    // Mock only – wire to real PDF later
-    alert("Download Friend or Foe Safety Checklist (mock).");
+    const link = document.createElement("a");
+    link.href = safetyChecklistPdf;
+    link.download = "Friend-or-Foe-Safety-Checklist.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (

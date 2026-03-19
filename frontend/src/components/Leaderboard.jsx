@@ -2,8 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useFriendOrFoe } from '../context/FriendOrFoeContext'
 
 function Leaderboard() {
-  const { getLeaderboard, playerName } = useFriendOrFoe()
+  const {
+    getLeaderboard,
+    playerName,
+    profiles,
+    decisions,
+    correctDecisions,
+    flaggedElements,
+  } = useFriendOrFoe()
   const [entries, setEntries] = useState([])
+
+  const totalProfiles = profiles.length
 
   useEffect(() => {
     let cancelled = false
@@ -89,10 +98,10 @@ function Leaderboard() {
             </p>
           </div>
           <div className="flex flex-col p-3 gap-2 text-sm sm:text-base">
-            <p>✔ Identified 8 fake accounts</p>
-            <p>✔ Spotted 28 red flags</p>
-            <p>✔ Protected yourself online</p>
-            <p>✔ Recognized safe profiles too</p>
+            <p>✔ Check multiple clues together</p>
+            <p>✔ Verify photo and profile consistency</p>
+            <p>✔ Spot pressure, DM traps, and off-app moves</p>
+            <p>✔ Choose safety when unsure</p>
           </div>
         </div>
       </div>
@@ -106,13 +115,10 @@ function Leaderboard() {
             </p>
           </div>
           <div className="flex flex-col gap-2 p-3 text-sm sm:text-base">
-            <p>
-              Check for multiple red flags – one alone might be okay,
-              several together = danger.
-            </p>
-            <p>No mutual friends? Be cautious.</p>
-            <p>New accounts need more investigation.</p>
-            <p>It&apos;s okay to reject strangers.</p>
+            <p>Use multiple signals together, not just one clue.</p>
+            <p>New account + low mutuals = extra caution.</p>
+            <p>Pushy DMs/off-app moves are major red flags.</p>
+            <p>When unsure, verify first and protect yourself.</p>
           </div>
         </div>
       </div>
