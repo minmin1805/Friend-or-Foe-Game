@@ -8,6 +8,8 @@ function IncorrectPopup({ onClose, feedback }) {
   const profile = feedback?.profile
   const spottedKeys = feedback?.spottedFlags ?? []
   const missedKeys = feedback?.missedFlags ?? []
+  const decision = feedback?.decision
+  const acceptedFake = decision === 'accept'
 
   const allRedFlags = profile?.redFlags ?? []
   const spottedReasons = allRedFlags.filter((f) => spottedKeys.includes(f.elementKey))
@@ -21,12 +23,16 @@ function IncorrectPopup({ onClose, feedback }) {
   const explanation = feedback?.explanation
 
   return (
-  <div className="bg-blue-100 p-2 sm:p-3 rounded-2xl max-h-[90vh] overflow-y-auto w-full max-w-[calc(100vw-2rem)] sm:max-w-none mx-auto">
-    <div className="relative w-full max-w-md md:max-w-lg bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
+  <div className="bg-blue-100 p-2 sm:p-3 rounded-2xl max-h-[90vh] overflow-y-auto w-fit max-w-[calc(100vw-2rem)] sm:max-w-176 mx-auto">
+    <div className="relative w-full bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
       <div className="bg-red-500 text-white px-4 py-3 sm:px-6 sm:py-4 text-center">
         <p className="text-xs sm:text-sm font-semibold tracking-wide">LET&apos;S LEARN FROM THIS</p>
         <p className="text-base sm:text-lg md:text-xl font-bold mt-1 leading-snug px-1">
-          You accepted a <span className="underline">FAKE</span> account
+          {acceptedFake ? (
+            <>You accepted a <span className="underline">FAKE</span> account</>
+          ) : (
+            <>You rejected a <span className="underline">SAFE</span> account</>
+          )}
         </p>
       </div>
 
@@ -40,16 +46,22 @@ function IncorrectPopup({ onClose, feedback }) {
 
         <hr className="border-dashed border-gray-900" />
 
-        {/* Red flags list */}
+        {/* Red flags list (fake-profile scenario) / safety context (safe-profile scenario) */}
         <div>
           <p className="font-semibold text-gray-900 mb-2">
-            THIS PROFILE HAD {totalRedFlags || '?'} RED FLAGS
+            {acceptedFake
+              ? `THIS PROFILE HAD ${totalRedFlags} RED FLAGS`
+              : 'THIS PROFILE WAS A SAFE ACCOUNT'}
           </p>
           <ul className="space-y-1 text-sm">
-            {allRedFlags.length > 0 ? (
+            {acceptedFake && allRedFlags.length > 0 ? (
               allRedFlags.map((f) => (
                 <li key={f.elementKey}>🚩 {f.reason}</li>
               ))
+            ) : !acceptedFake ? (
+              <li className="text-gray-700">
+                This profile showed normal, authentic signs and did not require rejection.
+              </li>
             ) : (
               <li className="text-gray-500 italic">Red flag details unavailable for this profile.</li>
             )}
@@ -58,16 +70,22 @@ function IncorrectPopup({ onClose, feedback }) {
 
         <hr className="border-dashed border-gray-900" />
 
-        {/* Flags you spotted */}
+        {/* What was flagged */}
         <div>
           <p className="font-semibold text-gray-900 mb-1">
-            You spotted: {spottedCount}/{totalRedFlags || '?'} flags
+            {acceptedFake
+              ? `You spotted: ${spottedCount}/${totalRedFlags} flags`
+              : `Correct red flags spotted: ${spottedCount}`}
           </p>
           <ul className="space-y-1 text-sm text-green-700">
-            {spottedReasons.length > 0 ? (
+            {acceptedFake && spottedReasons.length > 0 ? (
               spottedReasons.map((f) => (
                 <li key={f.elementKey}>✔ {f.reason}</li>
               ))
+            ) : !acceptedFake ? (
+              <li className="text-gray-700">
+                This profile was safe overall — use caution, but avoid over-flagging safe accounts.
+              </li>
             ) : (
               <li className="text-gray-500 italic">You didn&apos;t flag any of the red flags.</li>
             )}
@@ -83,9 +101,9 @@ function IncorrectPopup({ onClose, feedback }) {
           <p className="text-2xl font-extrabold text-blue-700">{totalScore} points</p>
         </div>
 
-        {/* What to look for */}
+        {/* Learning summary */}
         <div className="mt-2 rounded-2xl bg-purple-50 px-4 py-3 text-xs md:text-sm text-gray-700">
-          <p className="font-semibold mb-1">💡 What to Look For:</p>
+          <p className="font-semibold mb-1">💡 Learning Point:</p>
           <p>{explanation}</p>
         </div>
       </div>

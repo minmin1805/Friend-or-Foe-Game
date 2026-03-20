@@ -13,14 +13,22 @@ function Leaderboard() {
   const [entries, setEntries] = useState([])
 
   const totalProfiles = profiles.length
+  const totalCompleted = decisions.filter(Boolean).length || totalProfiles
+  const localCorrectRate = totalCompleted > 0 ? correctDecisions / totalCompleted : 0
+  const localBadgeTitle =
+    localCorrectRate >= 0.8
+      ? 'Expert Investigator'
+      : localCorrectRate >= 0.5
+        ? 'Cyber Detective'
+        : 'Safety Scout'
 
   useEffect(() => {
     let cancelled = false
     ;(async () => {
       try {
-        const data = await getLeaderboard(10)
+        const data = await getLeaderboard(5)
         if (!cancelled) {
-          const players = data.players || []
+          const players = (data.players || []).slice(0, 5)
           const mapped = players.map((p, index) => ({
             rank: index + 1,
             name: p.name,
@@ -39,6 +47,8 @@ function Leaderboard() {
   }, [getLeaderboard])
 
   const getDisplayTitle = (item) => {
+    // Keep the current player's row consistent with Endgame badge logic (accuracy-based).
+    if (item.name === playerName) return localBadgeTitle
     if (item.title && item.title.trim() !== '') return item.title
     // Fallback: derive badge from score if backend badge is missing
     if (item.score >= 8000) return 'Expert Investigator'

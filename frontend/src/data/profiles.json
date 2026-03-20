@@ -327,9 +327,7 @@
     ],
     "photosSection": { "count": 8, "description": "Mix of generic content; only 1 selfie; no friends in photos" },
     "redFlags": [
-      { "elementKey": "profilePhoto", "reason": "Unknown/default avatar (not a clear real teen photo)" },
       { "elementKey": "following", "reason": "Following 423 but only 89 followers (mass-adding)" },
-      { "elementKey": "joinedDate", "reason": "Account only 3 months old" },
       { "elementKey": "mutualFriends", "reason": "Only 1 mutual friends" },
       { "elementKey": "post_1", "reason": "Generic post; no personal details" },
       { "elementKey": "post_2", "reason": "Generic post; no personal details" },
@@ -339,8 +337,8 @@
       { "elementKey": "post_7", "reason": "Asks for new friends to talk to (suspicious)" },
       { "elementKey": "post_8", "reason": "Invites DMs (suspicious)" }
     ],
-    "explanationRejectedCorrect": "Sharp detective skills. While this profile looked more convincing, you spotted the red flags: unknown/default avatar, following way more people than follow back, recent posts all asking for DMs, and generic content. Predators create \"convincing\" profiles to seem trustworthy.",
-    "explanationAcceptedWrong": "This was a tricky one. The profile seemed okay but had multiple red flags: unknown/default avatar, following 423 people but only 89 followers (mass-adding), recent posts all ask for DMs/chats, no friends in photos, generic posts with no personal details, and a relatively new account. Be extra careful with accounts that seem too friendly or eager to chat.",
+    "explanationRejectedCorrect": "Sharp detective skills. While this profile looked more convincing, you spotted the red flags: following way more people than follow back, weak mutual-friend connection, recent posts asking for DMs, and generic content with little personal context. Predators create \"convincing\" profiles to seem trustworthy.",
+    "explanationAcceptedWrong": "This was a tricky one. The profile seemed okay but had multiple red flags: following 423 people but only 89 followers (mass-adding), only 1 mutual friend, recent posts asking for DMs/chats, and generic posts with little personal context. Be extra careful with accounts that seem too friendly or eager to chat.",
     "explanationAcceptedCorrect": "",
     "explanationRejectedWrong": ""
   },

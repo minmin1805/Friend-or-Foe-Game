@@ -21,8 +21,8 @@ function CorrectPopup({ onClose, feedback }) {
   const explanation = feedback?.explanation
 
   return (
-    <div className="bg-blue-100 p-2 sm:p-3 rounded-2xl max-h-[90vh] overflow-y-auto w-full max-w-[calc(100vw-2rem)] sm:max-w-none mx-auto">
-    <div className="relative w-full max-w-md md:max-w-lg bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
+    <div className="bg-blue-100 p-2 sm:p-3 rounded-2xl max-h-[90vh] overflow-y-auto w-fit max-w-[calc(100vw-2rem)] sm:max-w-176 mx-auto">
+    <div className="relative w-full bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
       {/* Header */}
       <div className="bg-green-800 text-white px-4 py-3 sm:px-6 sm:py-4 flex flex-col sm:flex-row items-center gap-3 sm:gap-0 text-center sm:text-left">
         <img src={tickImage} alt="" className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 sm:mr-6" />
