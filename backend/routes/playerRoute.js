@@ -7,4 +7,4 @@ router.get("/leaderboard", getLeaderboard);
 router.post("/", createPlayer);
 router.patch("/:id", updatePlayer);
 
-export default router;
+export default router; 
