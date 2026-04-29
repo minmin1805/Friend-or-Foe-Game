@@ -59,11 +59,22 @@ const normalizeEvent = (rawEvent) => {
   };
 };
 
+/** Safe ObjectId for GameSession rolls up; invalid ids become null instead of rejecting writes. */
+const toPlayerRef = (normalizedEvent) => {
+  if (!normalizedEvent.playerId) return null;
+  try {
+    return new mongoose.Types.ObjectId(normalizedEvent.playerId.toString());
+  } catch {
+    return null;
+  }
+};
+
 const upsertSessionSummary = async (normalizedEvent) => {
+  const playerRef = toPlayerRef(normalizedEvent);
   const baseSetOnInsert = {
     sessionId: normalizedEvent.sessionId,
     gameId: normalizedEvent.gameId,
-    playerId: normalizedEvent.playerId || null,
+    playerId: playerRef,
     startedAt: normalizedEvent.timestamp,
   };
 
@@ -74,7 +85,7 @@ const upsertSessionSummary = async (normalizedEvent) => {
         $setOnInsert: baseSetOnInsert,
         $set: {
           gameId: normalizedEvent.gameId,
-          playerId: normalizedEvent.playerId || null,
+          playerId: playerRef,
           version: normalizedEvent.appVersion || '',
         },
       },
@@ -99,7 +110,7 @@ const upsertSessionSummary = async (normalizedEvent) => {
         $setOnInsert: baseSetOnInsert,
         $set: {
           gameId: normalizedEvent.gameId,
-          playerId: normalizedEvent.playerId || null,
+          playerId: playerRef,
           endedAt,
           durationSec,
           completed: metadata.completed !== false,
@@ -135,14 +146,29 @@ export const ingestTelemetryEvents = async (req, res) => {
 
     const writeResult = await Event.bulkWrite(writes, { ordered: false });
 
+    // Rolled summary is secondary: never fail ingestion if rollup errors (events already persisted).
+    let sessionRollupErrors = 0;
     await Promise.all(
-      normalizedEvents.map((eventDoc) => upsertSessionSummary(eventDoc)),
+      normalizedEvents.map(async (eventDoc) => {
+        try {
+          await upsertSessionSummary(eventDoc);
+        } catch (err) {
+          sessionRollupErrors += 1;
+          console.error(
+            '[telemetry] GameSession rollup failed:',
+            eventDoc.eventType,
+            eventDoc.sessionId,
+            err?.message || err,
+          );
+        }
+      }),
     );
 
     return res.status(202).json({
       received: normalizedEvents.length,
       inserted: writeResult.upsertedCount || 0,
       duplicates: normalizedEvents.length - (writeResult.upsertedCount || 0),
+      sessionRollupErrors,
     });
   } catch (error) {
     return res.status(400).json({

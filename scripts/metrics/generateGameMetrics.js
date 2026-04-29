@@ -84,6 +84,11 @@ const run = async () => {
     ).lean(),
   ]);
 
+  const distinctSessionsWithStart = await Event.distinct('sessionId', {
+    ...eventFilter,
+    eventType: 'session_start',
+  });
+
   const completes = Math.max(
     completeEvents,
     sessions.filter((s) => s.completed).length,
@@ -93,10 +98,36 @@ const run = async () => {
     .map((s) => s.durationSec)
     .filter((v) => typeof v === 'number' && v > 0);
 
-  const avgDurationSec =
+  /** Prefer rollup rows in `gamesessions`; if empty/outdated, fall back to raw `events`. */
+  const avgSessionDurationFromSessions =
     durations.length > 0
       ? durations.reduce((acc, n) => acc + n, 0) / durations.length
       : 0;
+
+  const durationAvgFromCompleteEvents = await Event.aggregate([
+    {
+      $match: {
+        ...eventFilter,
+        eventType: 'session_complete',
+        'metadata.durationSec': { $exists: true, $gt: 0 },
+      },
+    },
+    { $group: { _id: null, avgDur: { $avg: '$metadata.durationSec' } } },
+  ]);
+  const avgSessionDurationFromEvents =
+    typeof durationAvgFromCompleteEvents?.[0]?.avgDur === 'number'
+      ? durationAvgFromCompleteEvents[0].avgDur
+      : 0;
+
+  const avgDurationSecFinal =
+    avgSessionDurationFromSessions > 0
+      ? avgSessionDurationFromSessions
+      : avgSessionDurationFromEvents;
+
+  const sessionCountForSample = Math.max(
+    sessions.length,
+    distinctSessionsWithStart.length,
+  );
 
   let correctCount = 0;
   let fakeReviewed = 0;
@@ -135,10 +166,18 @@ const run = async () => {
     starts,
     completes,
     completionRate: round(safeRate(completes, starts)),
-    avgSessionDurationSec: round(avgDurationSec, 2),
+    avgSessionDurationSec: round(avgDurationSecFinal, 2),
+    avgSessionDurationSource:
+      avgSessionDurationFromSessions > 0
+        ? 'gamesessionsrollup'
+        : avgSessionDurationFromEvents > 0
+          ? 'session_complete_events'
+          : 'none',
+    gamesessionsDocumentCountInRange: sessions.length,
+    distinctSessionIdsFromStarts: distinctSessionsWithStart.length,
     dropoffByStep: dropoffMap,
     sampleSize: {
-      sessionCount: sessions.length,
+      sessionCount: sessionCountForSample,
       evaluationEventCount: decisionRows.length,
     },
   };

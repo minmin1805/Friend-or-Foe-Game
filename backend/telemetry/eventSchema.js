@@ -33,7 +33,7 @@ const eventMetadataRules = {
   risky_cta_click: ['caseId', 'caseNumber', 'ctaKey'],
   reply_graded: ['caseId', 'caseNumber', 'replySafetyBand', 'sharesCredentials'],
   feedback_viewed: ['caseId', 'caseNumber'],
-  session_complete: ['completed', 'finalScore', 'stepsCompleted', 'durationSec'],
+  session_complete: ['completed', 'finalScore', 'stepsCompleted', 'totalSteps', 'durationSec', 'startedAt'],
 };
 
 export const getAllowedMetadataKeys = (eventType) => {
