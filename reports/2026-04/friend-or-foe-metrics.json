@@ -1,32 +1,32 @@
 {
-  "generatedAt": "2026-04-29T20:43:55.798Z",
+  "generatedAt": "2026-04-29T20:50:01.255Z",
   "gameId": "friend-or-foe",
   "environmentScope": "all",
   "from": "2026-04-01T00:00:00.000Z",
-  "to": "2026-04-29T20:43:54.865Z",
-  "starts": 2,
-  "completes": 1,
-  "completionRate": 0.5,
+  "to": "2026-04-29T20:50:00.021Z",
+  "starts": 3,
+  "completes": 2,
+  "completionRate": 0.6667,
   "avgSessionDurationSec": 0,
   "dropoffByStep": {
-    "1": 1,
-    "2": 1,
-    "3": 1,
-    "4": 1,
-    "5": 1,
-    "6": 1,
-    "7": 1,
-    "8": 1,
-    "9": 1,
-    "10": 1
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2,
+    "5": 2,
+    "6": 2,
+    "7": 2,
+    "8": 2,
+    "9": 2,
+    "10": 2
   },
   "sampleSize": {
     "sessionCount": 0,
-    "evaluationEventCount": 10
+    "evaluationEventCount": 20
   },
-  "totalDecisions": 10,
+  "totalDecisions": 20,
   "decisionAccuracyRate": 1,
   "falseAcceptRate": 0,
   "falseRejectRate": 0,
-  "avgFlagsSelectedPerProfile": 5.2
+  "avgFlagsSelectedPerProfile": 5.45
 }

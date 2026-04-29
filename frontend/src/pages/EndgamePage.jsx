@@ -101,7 +101,7 @@ function EndgamePage() {
       `}</style>
       <div className="fof-endgame-bg" aria-hidden="true" />
 
-      <div className="relative z-10 flex flex-col w-full items-center py-6 sm:py-8">
+      <div className="relative z-10 flex flex-col w-full items-center py-6 sm:py-8 pb-10">
         {/* Logo – same style as EndgamePage */}
         <img
           src={logo}
@@ -131,7 +131,7 @@ function EndgamePage() {
         </div>
 
         {/* Bottom buttons – reuse style from Sextortion EndgamePage */}
-        <div className="flex flex-col sm:flex-row mt-8 sm:mt-10 gap-4 sm:gap-8 justify-center w-full px-4 sm:px-6 pb-8">
+        <div className="flex flex-col sm:flex-row mt-8 sm:mt-10 gap-4 sm:gap-8 justify-center w-full px-4 sm:px-6">
           <button
             type="button"
             className="bg-[#ddecff] text-blue-900 px-4 py-2 rounded-md text-lg sm:text-xl font-bold flex items-center justify-center gap-2"
@@ -147,6 +147,9 @@ function EndgamePage() {
             Exit To Menu
           </button>
         </div>
+        <p className="mt-10 mb-2 px-4 text-center text-xs sm:text-sm text-blue-950/65">
+          Design &amp; development by Minh Doan
+        </p>
       </div>
     </div>
   );

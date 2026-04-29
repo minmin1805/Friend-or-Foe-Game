@@ -30,7 +30,8 @@ function WelcomePage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-dvh bg-blue-300 px-4 py-8 sm:py-10">
+    <div className="flex flex-col min-h-dvh bg-blue-300 px-4 py-8 sm:py-10">
+      <div className="flex flex-1 flex-col items-center justify-center w-full">
       <img src={logo} alt="Friend or Foe" className="max-w-[min(100%,280px)] sm:max-w-xs w-full h-auto" />
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-6 sm:mt-10 text-center max-w-lg leading-tight">
         Can you spot the fake account?
@@ -65,6 +66,10 @@ function WelcomePage() {
           Spot red flags to earn points
         </p>
       </div>
+      </div>
+      <p className="mt-8 text-center text-xs sm:text-sm text-white/85">
+        Design &amp; development by Minh Doan
+      </p>
     </div>
   )
 }
