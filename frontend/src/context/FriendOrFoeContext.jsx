@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useCallback } from 'react'
 import * as playerService from '../services/playerService'
+import * as telemetryService from '../services/telemetryService'
 import profilesData from '../data/profiles.json'
 
 const PROFILES = profilesData
@@ -168,16 +169,44 @@ const initialState = {
 
 export function FriendOrFoeProvider({ children }) {
   const [state, dispatch] = useReducer(friendOrFoeReducer, initialState)
+  const emitTelemetry = useCallback(async (event) => {
+    try {
+      await telemetryService.sendTelemetryEvent(event)
+    } catch (error) {
+      // Telemetry must never block gameplay.
+      console.warn('Telemetry send failed:', error?.message || error)
+    }
+  }, [])
 
   const createPlayer = useCallback(async (name) => {
     const data = await playerService.createPlayer(name)
     dispatch({ type: 'CREATE_PLAYER', payload: data })
+    emitTelemetry({
+      gameId: 'friend-or-foe',
+      eventType: 'session_start',
+      sessionId: data.sessionId || `player-${data.id}`,
+      playerId: data.id,
+      metadata: {},
+    })
     return data
-  }, [])
+  }, [emitTelemetry])
 
   const setFlag = useCallback((profileIndex, elementKey) => {
+    const isAlreadyFlagged = (state.flaggedElements[profileIndex] ?? []).includes(elementKey)
     dispatch({ type: 'SET_FLAG', payload: { profileIndex, elementKey } })
-  }, [])
+    emitTelemetry({
+      gameId: 'friend-or-foe',
+      eventType: 'flag_toggled',
+      sessionId: state.sessionId || `player-${state.playerId || 'unknown'}`,
+      playerId: state.playerId,
+      stepId: String(PROFILES[profileIndex]?.profileId ?? profileIndex + 1),
+      stepNumber: profileIndex + 1,
+      metadata: {
+        flagKey: elementKey,
+        isFlagged: !isAlreadyFlagged,
+      },
+    })
+  }, [emitTelemetry, state.flaggedElements, state.playerId, state.sessionId])
 
   const clearFlags = useCallback((profileIndex) => {
     dispatch({ type: 'CLEAR_FLAGS', payload: { profileIndex } })
@@ -243,25 +272,90 @@ export function FriendOrFoeProvider({ children }) {
         willUnlockDouble,
       },
     })
-  }, [state.flaggedElements, state.score, state.doubleForNextActive, state.doubleForNextUsed, state.doubleForNextAvailable])
+    emitTelemetry({
+      gameId: 'friend-or-foe',
+      eventType: 'decision_submitted',
+      sessionId: state.sessionId || `player-${state.playerId || 'unknown'}`,
+      playerId: state.playerId,
+      stepId: String(profile?.profileId ?? profileIndex + 1),
+      stepNumber: profileIndex + 1,
+      metadata: {
+        profileId: String(profile?.profileId ?? profileIndex + 1),
+        decision,
+        isCorrect: correct,
+        correctDecision: profile?.correctDecision || null,
+        profileType: profile?.correctDecision === 'reject' ? 'fake' : 'legit',
+        selectedFlagCount: flagged.size,
+        spottedFlagCount: spottedFlags.length,
+        missedFlagCount: missedFlags.length,
+        incorrectFlagCount: incorrectFlags.length,
+      },
+    })
+  }, [emitTelemetry, state.flaggedElements, state.score, state.doubleForNextActive, state.doubleForNextUsed, state.doubleForNextAvailable, state.playerId, state.sessionId])
 
   const setCurrentProfileById = useCallback((profileId) => {
+    const index = PROFILES.findIndex((p) => p.profileId === profileId)
     dispatch({ type: 'SET_CURRENT_PROFILE_BY_ID', payload: { profileId } })
-  }, [])
+    if (index !== -1) {
+      emitTelemetry({
+        gameId: 'friend-or-foe',
+        eventType: 'profile_opened',
+        sessionId: state.sessionId || `player-${state.playerId || 'unknown'}`,
+        playerId: state.playerId,
+        stepId: String(profileId),
+        stepNumber: index + 1,
+        metadata: {
+          profileId: String(profileId),
+          profileNumber: index + 1,
+        },
+      })
+    }
+  }, [emitTelemetry, state.playerId, state.sessionId])
 
   const goToNextProfile = useCallback(() => {
+    if (state.pendingFeedback?.profile?.profileId) {
+      emitTelemetry({
+        gameId: 'friend-or-foe',
+        eventType: 'feedback_viewed',
+        sessionId: state.sessionId || `player-${state.playerId || 'unknown'}`,
+        playerId: state.playerId,
+        stepId: String(state.pendingFeedback.profile.profileId),
+        stepNumber: state.currentProfileIndex + 1,
+        metadata: {
+          profileId: String(state.pendingFeedback.profile.profileId),
+          profileNumber: state.currentProfileIndex + 1,
+        },
+      })
+    }
     dispatch({ type: 'GO_TO_NEXT_PROFILE' })
-  }, [])
+  }, [emitTelemetry, state.currentProfileIndex, state.pendingFeedback, state.playerId, state.sessionId])
 
   const finishGame = useCallback(async () => {
     if (!state.playerId) return
+    const completedAtIso = new Date().toISOString()
+    const durationSec = state.gameStartedAt
+      ? Math.max(0, Math.floor((Date.now() - state.gameStartedAt) / 1000))
+      : 0
     await playerService.updatePlayer(state.playerId, {
       score: state.score,
       correctDecisions: state.correctDecisions,
       badge: '', // optional: compute from score
-      completedAt: new Date().toISOString(),
+      completedAt: completedAtIso,
     })
-  }, [state.playerId, state.score, state.correctDecisions])
+    emitTelemetry({
+      gameId: 'friend-or-foe',
+      eventType: 'session_complete',
+      sessionId: state.sessionId || `player-${state.playerId || 'unknown'}`,
+      playerId: state.playerId,
+      metadata: {
+        completed: true,
+        finalScore: state.score,
+        stepsCompleted: state.decisions.filter(Boolean).length,
+        totalSteps: PROFILES.length,
+        durationSec,
+      },
+    })
+  }, [emitTelemetry, state.correctDecisions, state.decisions, state.gameStartedAt, state.playerId, state.score, state.sessionId])
 
   const getLeaderboard = useCallback((limit = 10) => {
     return playerService.getLeaderboard(limit)
